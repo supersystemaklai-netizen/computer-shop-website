@@ -1,50 +1,66 @@
+require("dotenv").config();
 const express = require("express");
-const fs = require("fs");
 const path = require("path");
 const crypto = require("crypto");
+const { Pool } = require("pg");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-const DATA_DIR = path.join(__dirname, "data");
-const ENQUIRIES_FILE = path.join(DATA_DIR, "enquiries.json");
-const PRODUCTS_FILE = path.join(DATA_DIR, "products.json");
+// Supabase PostgreSQL Connection Pool setup
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL,
+  ssl: { rejectUnauthorized: false }
+});
 
-// ---- Simple hardcoded admin credentials (change these!) ----
+// Initialize Database Tables automatically if they don't exist
+async function initDB() {
+  try {
+    await pool.query(`
+      CREATE TABLE IF NOT EXISTS products (
+        id TEXT PRIMARY KEY,
+        name TEXT NOT NULL,
+        category TEXT,
+        price NUMERIC,
+        offer_price NUMERIC,
+        best_offer BOOLEAN,
+        description TEXT,
+        image TEXT,
+        stock NUMERIC,
+        created_at TIMESTAMPTZ DEFAULT NOW()
+      );
+    `);
+
+    await pool.query(`
+      CREATE TABLE IF NOT EXISTS enquiries (
+        id TEXT PRIMARY KEY,
+        service_id TEXT,
+        service_title TEXT,
+        category TEXT,
+        name TEXT NOT NULL,
+        phone TEXT NOT NULL,
+        email TEXT,
+        address TEXT,
+        custom_fields JSONB,
+        status TEXT DEFAULT 'New',
+        created_at TIMESTAMPTZ DEFAULT NOW()
+      );
+    `);
+    console.log("Database tables checked/created successfully.");
+  } catch (err) {
+    console.error("Database initialization error:", err);
+  }
+}
+initDB();
+
+// ---- Hardcoded admin credentials ----
 const ADMIN_USERNAME = "admin";
 const ADMIN_PASSWORD = "admin123";
 
-// in-memory session tokens (fine for a small local/single-instance shop site)
 const activeTokens = new Set();
 
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
-
-// ---------- helpers ----------
-function readJSON(file) {
-  try {
-    const raw = fs.readFileSync(file, "utf-8");
-    return JSON.parse(raw || "[]");
-  } catch (err) {
-    return [];
-  }
-}
-
-function writeJSON(file, data) {
-  fs.writeFileSync(file, JSON.stringify(data, null, 2), "utf-8");
-}
-
-function requireAdmin(req, res, next) {
-  const token = req.headers["x-admin-token"];
-  if (token && activeTokens.has(token)) {
-    return next();
-  }
-  return res.status(401).json({ error: "Unauthorized. Please login again." });
-}
-
-function genId(prefix) {
-  return prefix + "_" + Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
-}
 
 // ---------- Admin auth ----------
 app.post("/api/admin/login", (req, res) => {
@@ -63,133 +79,211 @@ app.post("/api/admin/logout", requireAdmin, (req, res) => {
   res.json({ success: true });
 });
 
-// ---------- Enquiries (service requests submitted by customers) ----------
-
-// Customer submits a service enquiry form (public)
-app.post("/api/enquiries", (req, res) => {
-  const { serviceId, serviceTitle, category, name, phone, email, address, customFields } = req.body || {};
-
-  if (!serviceId || !name || !phone) {
-    return res.status(400).json({ error: "Name, phone and service are required." });
+function requireAdmin(req, res, next) {
+  const token = req.headers["x-admin-token"];
+  if (token && activeTokens.has(token)) {
+    return next();
   }
+  return res.status(401).json({ error: "Unauthorized. Please login again." });
+}
 
-  const enquiries = readJSON(ENQUIRIES_FILE);
-  const newEnquiry = {
-    id: genId("enq"),
-    serviceId,
-    serviceTitle: serviceTitle || serviceId,
-    category: category || "",
-    name,
-    phone,
-    email: email || "",
-    address: address || "",
-    customFields: customFields || {},
-    status: "New",
-    createdAt: new Date().toISOString()
-  };
+function genId(prefix) {
+  return prefix + "_" + Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
+}
 
-  enquiries.unshift(newEnquiry);
-  writeJSON(ENQUIRIES_FILE, enquiries);
+// ---------- Enquiries ----------
+app.post("/api/enquiries", async (req, res) => {
+  try {
+    const { serviceId, serviceTitle, category, name, phone, email, address, customFields } = req.body || {};
+    if (!serviceId || !name || !phone) {
+      return res.status(400).json({ error: "Name, phone and service are required." });
+    }
 
-  res.json({ success: true, enquiry: newEnquiry });
+    const id = genId("enq");
+    const query = `
+      INSERT INTO enquiries (id, service_id, service_title, category, name, phone, email, address, custom_fields, status)
+      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, 'New')
+      RETURNING *;
+    `;
+    const values = [id, serviceId, serviceTitle || serviceId, category || "", name, phone, email || "", address || "", JSON.stringify(customFields || {})];
+    
+    const result = await pool.query(query, values);
+    res.json({ success: true, enquiry: result.rows[0] });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Server error" });
+  }
 });
 
-// Admin: get all enquiries
-app.get("/api/enquiries", requireAdmin, (req, res) => {
-  const enquiries = readJSON(ENQUIRIES_FILE);
-  res.json(enquiries);
+app.get("/api/enquiries", requireAdmin, async (req, res) => {
+  try {
+    const result = await pool.query("SELECT * FROM enquiries ORDER BY created_at DESC;");
+    res.json(result.rows);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Server error" });
+  }
 });
 
-// Admin: update enquiry status
-app.put("/api/enquiries/:id", requireAdmin, (req, res) => {
-  const { id } = req.params;
-  const { status } = req.body || {};
-  const enquiries = readJSON(ENQUIRIES_FILE);
-  const idx = enquiries.findIndex((e) => e.id === id);
-  if (idx === -1) return res.status(404).json({ error: "Enquiry not found" });
-  if (status) enquiries[idx].status = status;
-  writeJSON(ENQUIRIES_FILE, enquiries);
-  res.json({ success: true, enquiry: enquiries[idx] });
+app.put("/api/enquiries/:id", requireAdmin, async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { status } = req.body || {};
+    const result = await pool.query(
+      "UPDATE enquiries SET status = $1 WHERE id = $2 RETURNING *;",
+      [status, id]
+    );
+    if (result.rows.length === 0) return res.status(404).json({ error: "Enquiry not found" });
+    res.json({ success: true, enquiry: result.rows[0] });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Server error" });
+  }
 });
 
-// Admin: delete enquiry
-app.delete("/api/enquiries/:id", requireAdmin, (req, res) => {
-  const { id } = req.params;
-  let enquiries = readJSON(ENQUIRIES_FILE);
-  const before = enquiries.length;
-  enquiries = enquiries.filter((e) => e.id !== id);
-  if (enquiries.length === before) return res.status(404).json({ error: "Enquiry not found" });
-  writeJSON(ENQUIRIES_FILE, enquiries);
-  res.json({ success: true });
+app.delete("/api/enquiries/:id", requireAdmin, async (req, res) => {
+  try {
+    const { id } = req.params;
+    const result = await pool.query("DELETE FROM enquiries WHERE id = $1 RETURNING *;", [id]);
+    if (result.rows.length === 0) return res.status(404).json({ error: "Enquiry not found" });
+    res.json({ success: true });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Server error" });
+  }
 });
 
 // ---------- Products ----------
-
-// Public: list all products (used on the storefront)
-app.get("/api/products", (req, res) => {
-  const products = readJSON(PRODUCTS_FILE);
-  res.json(products);
-});
-
-// Admin: add product
-app.post("/api/products", requireAdmin, (req, res) => {
-  const { name, category, price, offerPrice, bestOffer, description, image, stock } = req.body || {};
-  if (!name || price === undefined) {
-    return res.status(400).json({ error: "Product name and price are required." });
+app.get("/api/products", async (req, res) => {
+  try {
+    const result = await pool.query("SELECT * FROM products ORDER BY created_at DESC;");
+    const products = result.rows.map(row => ({
+      id: row.id,
+      name: row.name,
+      category: row.category,
+      price: Number(row.price),
+      offerPrice: row.offer_price !== null ? Number(row.offer_price) : null,
+      bestOffer: row.best_offer,
+      description: row.description,
+      image: row.image,
+      stock: Number(row.stock)
+    }));
+    res.json(products);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Server error" });
   }
-  const products = readJSON(PRODUCTS_FILE);
-  const newProduct = {
-    id: genId("prod"),
-    name,
-    category: category || "General",
-    price: Number(price) || 0,
-    offerPrice: offerPrice !== undefined && offerPrice !== "" ? Number(offerPrice) : null,
-    bestOffer: !!bestOffer,
-    description: description || "",
-    image: image || "",
-    stock: stock !== undefined && stock !== "" ? Number(stock) : 0
-  };
-  products.unshift(newProduct);
-  writeJSON(PRODUCTS_FILE, products);
-  res.json({ success: true, product: newProduct });
 });
 
-// Admin: update product
-app.put("/api/products/:id", requireAdmin, (req, res) => {
-  const { id } = req.params;
-  const products = readJSON(PRODUCTS_FILE);
-  const idx = products.findIndex((p) => p.id === id);
-  if (idx === -1) return res.status(404).json({ error: "Product not found" });
+app.post("/api/products", requireAdmin, async (req, res) => {
+  try {
+    const { name, category, price, offerPrice, bestOffer, description, image, stock } = req.body || {};
+    if (!name || price === undefined) {
+      return res.status(400).json({ error: "Product name and price are required." });
+    }
 
-  const { name, category, price, offerPrice, bestOffer, description, image, stock } = req.body || {};
-  const p = products[idx];
-  if (name !== undefined) p.name = name;
-  if (category !== undefined) p.category = category;
-  if (price !== undefined) p.price = Number(price) || 0;
-  if (offerPrice !== undefined) p.offerPrice = offerPrice === "" ? null : Number(offerPrice);
-  if (bestOffer !== undefined) p.bestOffer = !!bestOffer;
-  if (description !== undefined) p.description = description;
-  if (image !== undefined) p.image = image;
-  if (stock !== undefined) p.stock = Number(stock) || 0;
+    const id = genId("prod");
+    const query = `
+      INSERT INTO products (id, name, category, price, offer_price, best_offer, description, image, stock)
+      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+      RETURNING *;
+    `;
+    const values = [
+      id,
+      name,
+      category || "General",
+      Number(price) || 0,
+      offerPrice !== undefined && offerPrice !== "" ? Number(offerPrice) : null,
+      !!bestOffer,
+      description || "",
+      image || "",
+      stock !== undefined && stock !== "" ? Number(stock) : 0
+    ];
 
-  writeJSON(PRODUCTS_FILE, products);
-  res.json({ success: true, product: p });
+    const result = await pool.query(query, values);
+    const row = result.rows[0];
+    res.json({
+      success: true,
+      product: {
+        id: row.id,
+        name: row.name,
+        category: row.category,
+        price: Number(row.price),
+        offerPrice: row.offer_price !== null ? Number(row.offer_price) : null,
+        bestOffer: row.best_offer,
+        description: row.description,
+        image: row.image,
+        stock: Number(row.stock)
+      }
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Server error" });
+  }
 });
 
-// Admin: delete product
-app.delete("/api/products/:id", requireAdmin, (req, res) => {
-  const { id } = req.params;
-  let products = readJSON(PRODUCTS_FILE);
-  const before = products.length;
-  products = products.filter((p) => p.id !== id);
-  if (products.length === before) return res.status(404).json({ error: "Product not found" });
-  writeJSON(PRODUCTS_FILE, products);
-  res.json({ success: true });
+app.put("/api/products/:id", requireAdmin, async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { name, category, price, offerPrice, bestOffer, description, image, stock } = req.body || {};
+    
+    const existing = await pool.query("SELECT * FROM products WHERE id = $1;", [id]);
+    if (existing.rows.length === 0) return res.status(404).json({ error: "Product not found" });
+    const p = existing.rows[0];
+
+    const updatedName = name !== undefined ? name : p.name;
+    const updatedCategory = category !== undefined ? category : p.category;
+    const updatedPrice = price !== undefined ? Number(price) || 0 : p.price;
+    const updatedOfferPrice = offerPrice !== undefined ? (offerPrice === "" ? null : Number(offerPrice)) : p.offer_price;
+    const updatedBestOffer = bestOffer !== undefined ? !!bestOffer : p.best_offer;
+    const updatedDesc = description !== undefined ? description : p.description;
+    const updatedImage = image !== undefined ? image : p.image;
+    const updatedStock = stock !== undefined ? Number(stock) || 0 : p.stock;
+
+    const query = `
+      UPDATE products 
+      SET name = $1, category = $2, price = $3, offer_price = $4, best_offer = $5, description = $6, image = $7, stock = $8
+      WHERE id = $9
+      RETURNING *;
+    `;
+    const values = [updatedName, updatedCategory, updatedPrice, updatedOfferPrice, updatedBestOffer, updatedDesc, updatedImage, updatedStock, id];
+    const result = await pool.query(query, values);
+    const row = result.rows[0];
+
+    res.json({
+      success: true,
+      product: {
+        id: row.id,
+        name: row.name,
+        category: row.category,
+        price: Number(row.price),
+        offerPrice: row.offer_price !== null ? Number(row.offer_price) : null,
+        bestOffer: row.best_offer,
+        description: row.description,
+        image: row.image,
+        stock: Number(row.stock)
+      }
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Server error" });
+  }
+});
+
+app.delete("/api/products/:id", requireAdmin, async (req, res) => {
+  try {
+    const { id } = req.params;
+    const result = await pool.query("DELETE FROM products WHERE id = $1 RETURNING *;", [id]);
+    if (result.rows.length === 0) return res.status(404).json({ error: "Product not found" });
+    res.json({ success: true });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Server error" });
+  }
 });
 
 app.listen(PORT, () => {
-  console.log(`\nComputer & CCTV Shop website running!`);
+  console.log(`\nComputer & CCTV Shop website running with Supabase!`);
   console.log(`Storefront:  http://localhost:${PORT}`);
-  console.log(`Admin panel: http://localhost:${PORT}/admin.html`);
-  console.log(`Admin login -> username: ${ADMIN_USERNAME}  password: ${ADMIN_PASSWORD}\n`);
+  console.log(`Admin panel: http://localhost:${PORT}/admin.html\n`);
 });
