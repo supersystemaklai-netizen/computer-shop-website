@@ -1,0 +1,12 @@
+{
+  "name": "computer-cctv-shop",
+  "version": "1.0.0",
+  "description": "Computer & CCTV Shop website with services enquiry forms, admin panel and product management",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}

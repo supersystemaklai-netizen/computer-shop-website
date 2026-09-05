@@ -1,0 +1,24 @@
+[
+  {
+    "id": "p3",
+    "name": "Assembled Desktop PC (i5, 8GB, 512GB SSD)",
+    "category": "Computer",
+    "price": 34999,
+    "offerPrice": 31999,
+    "bestOffer": true,
+    "description": "Ready to use desktop for office and home, 1 year warranty.",
+    "image": "",
+    "stock": 6
+  },
+  {
+    "id": "p4",
+    "name": "500GB SSD",
+    "category": "Accessories",
+    "price": 2999,
+    "offerPrice": 2499,
+    "bestOffer": false,
+    "description": "Fast storage upgrade for any desktop or laptop.",
+    "image": "",
+    "stock": 40
+  }
+]

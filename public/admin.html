@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin — PixelGuard</title>
+<link rel="stylesheet" href="admin.css">
+</head>
+<body>
+
+<!-- LOGIN -->
+<div class="login-screen" id="login-screen">
+  <div class="login-box">
+    <h1>Admin login</h1>
+    <p class="sub">Sign in to manage service requests and products.</p>
+    <form id="login-form">
+      <div class="field">
+        <label>Username</label>
+        <input type="text" id="login-username" required autocomplete="username">
+      </div>
+      <div class="field">
+        <label>Password</label>
+        <input type="password" id="login-password" required autocomplete="current-password">
+      </div>
+      <button class="btn" type="submit">Log in</button>
+      <p class="error-text" id="login-error"></p>
+    </form>
+    <p class="hint">Default: admin / admin123 (change in server.js)</p>
+  </div>
+</div>
+
+<!-- DASHBOARD -->
+<div class="dash" id="dash">
+  <aside class="sidebar">
+    <div class="brand">🖥️ PixelGuard Admin</div>
+    <button class="tab active" data-tab="enquiries">Service Enquiries</button>
+    <button class="tab" data-tab="products">Products</button>
+    <button class="logout-btn" id="logout-btn">Log out</button>
+  </aside>
+
+  <main class="main">
+    <!-- Enquiries tab -->
+    <section class="tab-panel active" id="panel-enquiries">
+      <div class="main-head">
+        <h2>Service Enquiries</h2>
+        <span class="pill" id="enquiry-count">0 total</span>
+      </div>
+      <div class="enquiry-list" id="enquiry-list">
+        <p class="empty-note">Loading…</p>
+      </div>
+    </section>
+
+    <!-- Products tab -->
+    <section class="tab-panel" id="panel-products">
+      <div class="main-head">
+        <h2>Products</h2>
+      </div>
+
+      <div class="product-form">
+        <h3 id="product-form-title">Add a product</h3>
+        <form id="product-form">
+          <input type="hidden" id="product-id">
+          <div class="form-grid">
+            <div class="field">
+              <label>Product name</label>
+              <input type="text" id="p-name" required>
+            </div>
+            <div class="field">
+              <label>Category</label>
+              <select id="p-category">
+                <option>CCTV</option>
+                <option>Computer</option>
+                <option>Accessories</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>Price (₹)</label>
+              <input type="number" id="p-price" min="0" required>
+            </div>
+            <div class="field">
+              <label>Offer price (₹, optional)</label>
+              <input type="number" id="p-offer" min="0">
+            </div>
+            <div class="field">
+              <label>Stock quantity</label>
+              <input type="number" id="p-stock" min="0" value="0">
+            </div>
+            <div class="field">
+              <label>Image URL (optional)</label>
+              <input type="text" id="p-image" placeholder="https://…">
+            </div>
+            <div class="field full">
+              <label>Description</label>
+              <textarea id="p-description"></textarea>
+            </div>
+            <div class="field full checkbox-field">
+              <input type="checkbox" id="p-best-offer">
+              <label for="p-best-offer" style="margin:0;">Mark as "Best offer" (shows a badge on the storefront)</label>
+            </div>
+          </div>
+          <div style="display:flex; gap:10px; margin-top:16px;">
+            <button type="submit" class="btn" style="width:auto; padding:11px 22px;" id="product-submit-btn">Add product</button>
+            <button type="button" class="btn-small" id="product-cancel-edit" style="display:none;">Cancel edit</button>
+          </div>
+        </form>
+      </div>
+
+      <table class="admin-product-table">
+        <thead>
+          <tr>
+            <th>Product</th>
+            <th>Category</th>
+            <th>Price</th>
+            <th>Stock</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="product-table-body">
+          <tr><td colspan="5" class="empty-note">Loading…</td></tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+</div>
+
+<script src="services-data.js"></script>
+<script src="admin.js"></script>
+</body>
+</html>
