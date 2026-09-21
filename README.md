@@ -1,71 +1,59 @@
-# Super System — Computer & CCTV Shop Website
+# Super System — Latest Vercel + Supabase Website
 
-Ek complete website: services (Computer + CCTV) cards ke saath, click karne par
-service-specific enquiry form khulta hai, aur wo submission admin panel me
-dikhta hai. Admin panel se products (pricing + best offer) bhi manage kar sakte ho.
+This version is prepared for the existing `computer-shop-website` GitHub repository. It keeps the old Supabase `products` table compatible while replacing the insecure Express/admin setup with Supabase Authentication and Row Level Security.
 
-## Kya-kya hai isme
-- **Storefront (`/`)** — Hero section, Computer & CCTV service cards, Products/offers section, contact info.
-- **Service form** — Har service ka apna chhota form hai (jaise CCTV Installation me camera count, property type, etc.) jo alag tab/service ke hisaab se change hota hai.
-- **Admin panel (`/admin.html`)** — Login karke:
-  - Sabhi service enquiries dekho (customer ne kya-kya bhara), status update karo (New/Contacted/In Progress/Completed), delete karo.
-  - Products add/edit/delete karo — name, category (CCTV/Computer/Accessories), price, offer price, "Best Offer" badge, stock, image URL.
-- Data JSON files me save hota hai (`data/enquiries.json`, `data/products.json`) — koi database install karne ki zaroorat nahi.
+## Included
 
-## Site chalane ke liye (Run instructions)
+- Products shown first on the home page
+- Product category filters and direct WhatsApp purchase messages
+- Every service opens a direct WhatsApp booking message
+- Scrolling ticker
+- Admin product add/edit/delete/hide
+- Admin Website Settings: site name, tagline, WhatsApp number, address, working hours and ticker
+- Mobile/desktop responsive layout
+- Vercel static build configuration
 
-1. **Node.js install hona chahiye** (v16+). Check karo: `node -v`
-   Agar nahi hai to https://nodejs.org se install kar lo.
+## Required setup
 
-2. Zip file ko extract karo, phir terminal me us folder me jao:
-   ```
-   cd computer-shop-website
-   ```
+### 1. Configure Supabase connection
 
-3. Dependencies install karo:
-   ```
-   npm install
-   ```
+In `public/site-config.js`, replace only these values:
 
-4. Server start karo:
-   ```
-   npm start
-   ```
-
-5. Browser me kholo:
-   - Website: **http://localhost:3000**
-   - Admin panel: **http://localhost:3000/admin.html**
-
-## Admin login (default)
+```js
+supabaseUrl: "YOUR_SUPABASE_URL",
+supabaseAnonKey: "YOUR_SUPABASE_ANON_KEY"
 ```
-Username: admin
-Password: admin@123
-```
-⚠️ Production/live use se pehle `server.js` file me `ADMIN_USERNAME` aur
-`ADMIN_PASSWORD` change kar lena (top of the file).
 
-## Services list edit karni ho to
-`public/services-data.js` file kholo — yahan Computer aur CCTV categories ke
-services aur unke form fields defined hain. Naya service add karna ho to isi
-pattern me ek object add kar do; form automatically ban jayega.
+Use the public anon key only. Never add the service-role key to GitHub.
 
-## Products
-Products admin panel ke "Products" tab se add/edit/delete karo — website par
-turant show ho jayenge (with best-offer badge aur discounted price agar diya ho).
+### 2. Run the safe database migration
 
-## Folder structure
-```
-computer-shop-website/
-  server.js              -> backend (Express) + API
-  package.json
-  data/
-    enquiries.json        -> customer service requests
-    products.json          -> products list
-  public/
-    index.html            -> storefront
-    admin.html             -> admin panel
-    services-data.js        -> service categories + form fields (shared)
-    script.js               -> storefront logic
-    admin.js                 -> admin panel logic
-    style.css / admin.css
+Open Supabase → SQL Editor and run the complete `supabase-migration.sql` file once. Existing products are preserved.
+
+### 3. Create the admin
+
+1. Supabase → Authentication → Users → Add user.
+2. Create your admin email/password.
+3. Run the final commented `insert into public.admin_users...` query from `supabase-migration.sql` after replacing the email.
+4. Turn off public sign-ups in Supabase Authentication settings.
+
+Admin URL: `/admin.html`
+
+## Existing GitHub repository update
+
+Recommended: clone the existing repository with GitHub Desktop, remove the old project contents (keep the hidden `.git` folder), paste this package's contents at repository root, commit, and push. Vercel will redeploy the existing project automatically.
+
+Do not upload `node_modules`. The old `server.js`, `data` and tracked `node_modules` are no longer used and should be removed from the repository.
+
+## Local preview without Node.js
+
+Open `dist/index.html`, or right-click it in VS Code and select **Open with Live Server**. Admin preview is `dist/admin.html`.
+
+## Build
+
+With Node.js installed:
+
+```bash
+npm install
+npm run build
 ```

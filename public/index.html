@@ -1,110 +1,31 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Super System — Computer & CCTV Services</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Computer products, CCTV equipment and doorstep repair services in Akola.">
+  <title>Super System — Computers, CCTV & Repair in Akola</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-<div class="top-bar">⚡ Same-day service available in your area · <b>Book now, get a call back in 30 minutes</b></div>
-
-<nav class="nav">
-  <div class="wrap">
-    <div class="brand"><span class="brand-mark">🖥️</span> Super System</div>
-    <div class="location-chip">Service at<br><b>📍 Your city</b></div>
-    <div class="nav-links">
-      <a href="#services">Services</a>
-      <a href="#products">Products</a>
-      <a href="#contact">Contact</a>
-    </div>
-    <a href="#services" class="nav-cta">Book a service</a>
-  </div>
-</nav>
-
-<div class="chip-strip">
-  <div class="wrap" id="chip-strip-inner"></div>
-</div>
-
-<header class="hero">
-  <div class="wrap">
-    <div class="hero-banner">
-      <div>
-        <div class="hero-badge">⚡ 30-min response time</div>
-        <h1>Doorstep Computer & CCTV Repair – Available Only in Akola.</h1>
-        <p>Repairs, new builds and full security camera installs — book in a minute, a technician calls you back fast.</p>
-        <div class="hero-actions">
-          <a href="#services" class="btn-primary">Book a service →</a>
-          <a href="#products" class="btn-secondary">Shop products</a>
-        </div>
-      </div>
-      <div class="hero-visual">
-        <div class="hero-tile">🖥️<span>PC Repair</span></div>
-        <div class="hero-tile">📹<span>CCTV Install</span></div>
-        <div class="hero-tile">🌐<span>Networking</span></div>
-        <div class="hero-tile">🛠️<span>AMC Plans</span></div>
-      </div>
-    </div>
-
-    <div class="trust-strip">
-      <div class="trust-item"><div class="emoji">⚡</div><b>Fast response</b><span>Callback within 15 min</span></div>
-      <div class="trust-item"><div class="emoji">🧑‍🔧</div><b>Trained technicians</b><span>Verified & experienced</span></div>
-      <div class="trust-item"><div class="emoji">💰</div><b>Fair pricing</b><span>No hidden charges</span></div>
-      <div class="trust-item"><div class="emoji">🛡️</div><b>Service warranty</b><span>On repairs & installs</span></div>
-    </div>
-  </div>
-</header>
-
-<section class="section" id="services">
-  <div class="wrap">
-    <div class="section-head">
-      <div>
-        <h2>Our services</h2>
-        <p>Pick a service below — tell us what you need and we'll get back to you.</p>
-      </div>
-    </div>
-    <div id="services-container"></div>
-  </div>
-</section>
-
-<section class="section" id="products" style="border-top:1px solid var(--line); background:#fff;">
-  <div class="wrap">
-    <div class="section-head">
-      <div>
-        <h2>Products & best offers 🔥</h2>
-        <p>Cameras, recorders, PCs and accessories, priced to move.</p>
-      </div>
-    </div>
-    <div id="products-container" class="product-grid">
-      <p class="empty-note">Loading products…</p>
-    </div>
-  </div>
-</section>
-
-<section class="section" id="contact">
-  <div class="wrap">
-    <div class="contact-panel">
-      <div class="contact-item"><span>Phone</span><b>+91 97667 74855</b></div>
-      <div class="contact-item"><span>Email</span><b>supersystemakl.ai@gmail.com</b></div>
-      <div class="contact-item"><span>Shop hours</span><b>Mon – Sat, 10:00 AM – 10:00 PM</b></div>
-      <div class="contact-item"><span>Address</span><b>Patrakar Colony Shop No 13, Lrt College Road, Behind New Bus Stand, Patrakar Colony, Akola-444001, Maharashtra</b></div>
-    </div>
-  </div>
-</section>
-
-<footer>
-  &copy; 2026 Super System Computers &amp; CCTV. All rights reserved. &middot; <a href="admin.html">Admin login</a>
-</footer>
-
-<div class="modal-overlay" id="modal-overlay">
-  <div class="modal">
-    <button class="modal-close" id="modal-close">&times;</button>
-    <div id="modal-body"></div>
-  </div>
-</div>
-
-<script src="services-data.js"></script>
-<script src="script.js"></script>
-</body>
-</html>
+  <div class="ticker" aria-label="Latest offers"><span class="ticker-label">LATEST</span><div class="ticker-window"><div class="ticker-track" id="ticker-track"></div></div></div>
+  <nav class="nav"><div class="wrap nav-inner">
+    <a class="brand" href="#products"><span class="brand-mark">▰</span><span id="site-name">Super System</span></a>
+    <div class="nav-links"><a href="#products">Products</a><a href="#services">Services</a><a href="#contact">Contact</a></div>
+    <a class="nav-cta whatsapp-link" data-message="Hello Super System, I need help with a computer/CCTV service." href="#">WhatsApp Us</a>
+    <button class="menu-btn" id="menu-btn" aria-label="Open menu">☰</button>
+  </div></nav>
+  <main>
+    <section class="products section" id="products"><div class="wrap">
+      <div class="section-head"><div><span class="eyebrow">Shop in Akola</span><h1>Products & best offers <span>🔥</span></h1><p id="site-tagline">Cameras, recorders, computers and accessories—order directly on WhatsApp.</p></div><div class="filter-row" id="filter-row"></div></div>
+      <div id="products-container" class="product-grid"><div class="loading-card">Loading products…</div></div>
+    </div></section>
+    <section class="quick-strip"><div class="wrap quick-grid"><div><b>⚡ Fast response</b><span>Quick WhatsApp support</span></div><div><b>🛠️ Expert service</b><span>Computer & CCTV specialists</span></div><div><b>📍 Akola local</b><span>Doorstep service available</span></div><div><b>✅ Trusted products</b><span>Best value and support</span></div></div></section>
+    <section class="section services" id="services"><div class="wrap"><div class="section-head"><div><span class="eyebrow">Doorstep support</span><h2>Book a service on WhatsApp</h2><p>Select a service and send the ready-made message. No long form required.</p></div></div><div id="services-container" class="service-grid"></div></div></section>
+    <section class="contact section" id="contact"><div class="wrap contact-card"><div><span class="eyebrow">Need help choosing?</span><h2>Talk to <span id="contact-site-name">Super System</span></h2><p>Tell us your budget or problem. We will suggest the right product or service.</p><div class="contact-meta"><span>📍 <b id="site-address">Akola, Maharashtra</b></span><span>🕒 <b id="site-hours">Mon–Sat, 10 AM–8 PM</b></span></div></div><div class="contact-actions"><a class="btn primary whatsapp-link" data-message="Hello, please help me choose a product or service." href="#">Chat on WhatsApp</a><a class="btn secondary" id="call-link" href="#">Call now</a></div></div></section>
+  </main>
+  <a class="floating-wa whatsapp-link" data-message="Hello Super System, I need assistance." href="#" aria-label="Chat on WhatsApp">WA</a>
+  <footer><div class="wrap"><span>© 2026 <b id="footer-name">Super System</b> · <span id="footer-address">Akola, Maharashtra</span></span><a href="admin.html">Admin</a></div></footer>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="site-config.js"></script><script src="services-data.js"></script><script src="script.js"></script>
+</body></html>
