@@ -195,3 +195,13 @@ button { font-family: inherit; cursor: pointer; }
 }
 .empty-note { color: var(--text-muted); font-size: 14px; padding: 20px 0; }
 .row-actions { display: flex; gap: 8px; }
+
+input[type="color"]{height:44px;padding:4px;cursor:pointer}
+.product-form .sub{color:var(--text-muted);font-size:13px;line-height:1.6;margin:0 0 18px}
+#panel-services .product-form{max-width:920px}
+#panel-services .form-grid{gap:10px}
+#svc-rates{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;line-height:1.7}
+#svc-message{min-height:20px}
+.sidebar .tab{transition:background .15s,color .15s}
+.admin-product-table{display:block;overflow-x:auto;white-space:nowrap}
+@media(max-width:760px){.dash.open{display:block}.sidebar{width:100%;display:flex;gap:7px;align-items:center;overflow-x:auto;border-right:0;border-bottom:1px solid var(--border);padding:12px}.sidebar .brand{white-space:nowrap;margin:0 10px 0 0}.sidebar button.tab,.sidebar a.tab{width:auto;white-space:nowrap;margin:0}.logout-btn{width:auto;white-space:nowrap;margin:0 0 0 auto}.main{padding:20px 14px}.form-grid{grid-template-columns:1fr}.form-grid .full{grid-column:auto}}
