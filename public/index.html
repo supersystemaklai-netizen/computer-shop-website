@@ -1,31 +1,12 @@
 <!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="Computer products, CCTV equipment and doorstep repair services in Akola.">
-  <title>Super System — Computers, CCTV & Repair in Akola</title>
-  <link rel="icon" type="image/svg+xml" href="favicon.svg">
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
-  <div class="ticker" aria-label="Latest offers"><span class="ticker-label">LATEST</span><div class="ticker-window"><div class="ticker-track" id="ticker-track"></div></div></div>
-  <nav class="nav"><div class="wrap nav-inner">
-    <a class="brand" href="#products"><span class="brand-mark">▰</span><span id="site-name">Super System</span></a>
-    <div class="nav-links"><a href="#products">Products</a><a href="#services">Services</a><a href="#contact">Contact</a></div>
-    <a class="nav-cta whatsapp-link" data-message="Hello Super System, I need help with a computer/CCTV service." href="#">WhatsApp Us</a>
-    <button class="menu-btn" id="menu-btn" aria-label="Open menu">☰</button>
-  </div></nav>
-  <main>
-    <section class="products section" id="products"><div class="wrap">
-      <div class="section-head"><div><span class="eyebrow">Shop in Akola</span><h1>Products & best offers <span>🔥</span></h1><p id="site-tagline">Cameras, recorders, computers and accessories—order directly on WhatsApp.</p></div><div class="filter-row" id="filter-row"></div></div>
-      <div id="products-container" class="product-grid"><div class="loading-card">Loading products…</div></div>
-    </div></section>
-    <section class="quick-strip"><div class="wrap quick-grid"><div><b>⚡ Fast response</b><span>Quick WhatsApp support</span></div><div><b>🛠️ Expert service</b><span>Computer & CCTV specialists</span></div><div><b>📍 Akola local</b><span>Doorstep service available</span></div><div><b>✅ Trusted products</b><span>Best value and support</span></div></div></section>
-    <section class="section services" id="services"><div class="wrap"><div class="section-head"><div><span class="eyebrow">Doorstep support</span><h2>Book a service on WhatsApp</h2><p>Select a service and send the ready-made message. No long form required.</p></div></div><div id="services-container" class="service-grid"></div></div></section>
-    <section class="contact section" id="contact"><div class="wrap contact-card"><div><span class="eyebrow">Need help choosing?</span><h2>Talk to <span id="contact-site-name">Super System</span></h2><p>Tell us your budget or problem. We will suggest the right product or service.</p><div class="contact-meta"><span>📍 <b id="site-address">Akola, Maharashtra</b></span><span>🕒 <b id="site-hours">Mon–Sat, 10 AM–8 PM</b></span></div></div><div class="contact-actions"><a class="btn primary whatsapp-link" data-message="Hello, please help me choose a product or service." href="#">Chat on WhatsApp</a><a class="btn secondary" id="call-link" href="#">Call now</a></div></div></section>
-  </main>
-  <a class="floating-wa whatsapp-link" data-message="Hello Super System, I need assistance." href="#" aria-label="Chat on WhatsApp">WA</a>
-  <footer><div class="wrap"><span>© 2026 <b id="footer-name">Super System</b> · <span id="footer-address">Akola, Maharashtra</span></span><a href="admin.html">Admin</a></div></footer>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="site-config.js"></script><script src="services-data.js"></script><script src="script.js"></script>
-</body></html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Shop computers, accessories and CCTV products; book repair services in Akola."><title>Super System Akola | Products & Repair</title><link rel="stylesheet" href="styles.css"></head>
+<body><div class="topline">Akola shop pickup • Computer & CCTV solutions • Repair booking</div>
+<header class="header"><a class="brand" href="#"><span class="brandmark">SS</span><span><b id="siteName">Super System</b><small>AKOLA</small></span></a><div class="location">📍 <span><b>Deliver / pickup at</b><small>Akola, Maharashtra</small></span></div><label class="search">⌕ <input id="searchInput" placeholder="Search products, CCTV, printer…"><button id="clearSearch" aria-label="Clear search">×</button></label><button id="cartBtn" class="cart">🛒 Cart <i id="cartCount">0</i></button></header>
+<nav class="nav"><a href="#products">Shop products</a><a href="#services">Repair services</a><a href="#contact">Contact</a><a href="admin.html">Admin</a></nav>
+<main><section class="hero"><div><span class="eyebrow">YOUR LOCAL TECH STORE</span><h1>Tech essentials.<br><em>Expert repairs.</em></h1><p id="tagline">Computer products, CCTV and dependable repair services in Akola.</p><a class="primary" href="#products">Explore products ↓</a></div><div class="hero-art"><div class="art-card">💻<b>Computer</b></div><div class="art-card">📹<b>CCTV</b></div><div class="art-card">🖨️<b>Printer</b></div><div class="art-card">🛠️<b>Repairs</b></div></div></section>
+<section id="products" class="section"><div class="section-head"><div><span class="eyebrow">SHOP LOCAL</span><h2>Popular products</h2></div><select id="sortSelect"><option value="featured">Featured</option><option value="low">Price: low to high</option><option value="high">Price: high to low</option></select></div><div id="filters" class="filters"><button class="active" data-category="All">All</button></div><div id="productGrid" class="product-grid"><p>Loading products…</p></div><p id="emptyProducts" class="empty hidden">No matching products found.</p></section>
+<section id="services" class="section services"><div class="section-head"><div><span class="eyebrow">WE CAN HELP</span><h2>Repair & service bookings</h2></div></div><div class="service-grid" id="serviceGrid"></div></section>
+<section id="contact" class="contact"><div><span class="eyebrow">VISIT OR MESSAGE US</span><h2>Need help choosing?</h2><p id="address">Akola, Maharashtra</p><p id="hours">Mon–Sat, 10 AM–10 PM</p></div><div><a class="primary" id="whatsappLink" target="_blank" rel="noopener">Chat on WhatsApp</a><a class="secondary" id="callLink">Call now</a></div></section></main>
+<footer>© <span id="year"></span> <b id="footerName">Super System</b> · Akola, Maharashtra</footer>
+<div id="overlay" class="overlay hidden"></div><aside id="drawer" class="drawer"><div class="drawer-head"><h2 id="drawerTitle">Your cart</h2><button id="closeDrawer" aria-label="Close">×</button></div><div id="drawerBody"></div></aside><div id="toast" class="toast"></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="site-config.js"></script><script src="script.js"></script></body></html>
