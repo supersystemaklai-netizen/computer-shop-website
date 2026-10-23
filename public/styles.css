@@ -49,3 +49,15 @@ html[data-theme="dark"] .quick-service-icon{background:#202c25}
 html[data-theme="dark"] .quick-service-arrow{color:#baf29a}
 html[data-theme="dark"] .service-detail{color:#eef5ef}
 @media(max-width:700px){.quick-service-icon{height:96px;flex-basis:96px}.quick-service-icon img{width:290%;height:290%}.quick-service-card{min-height:183px;padding:12px 8px}.quick-service-card>span:nth-child(2){font-size:13px}.quick-service-arrow{font-size:11px}}
+
+/* Admin-selected palette is used on surfaces too, with automatic readable button text. */
+.primary,.cart,.rate-book,.filters button.active{color:var(--primary-contrast,#fff)}
+.secondary,.cart i,.tag,.brandmark{color:var(--accent-contrast,var(--ink))}
+.hero{background:linear-gradient(115deg,color-mix(in srgb,var(--lime) 22%,var(--paper)),var(--paper))}
+.contact{background:color-mix(in srgb,var(--lime) 22%,var(--paper))}
+.product-art{background:color-mix(in srgb,var(--green) 5%,var(--paper))}
+.rate-table th{background:color-mix(in srgb,var(--lime) 22%,var(--paper))}
+html[data-theme="dark"] .hero{background:linear-gradient(115deg,color-mix(in srgb,var(--green) 25%,var(--paper)),var(--paper))}
+html[data-theme="dark"] .contact{background:color-mix(in srgb,var(--green) 25%,var(--paper))}
+html[data-theme="dark"] .product-art{background:#202c25}
+html[data-theme="dark"] .rate-table th{background:#293c2f;color:#f2f7f2}
