@@ -22,6 +22,7 @@ alter table public.products add column if not exists warranty text not null defa
 alter table public.products add column if not exists compatibility text not null default '';
 alter table public.products add column if not exists specifications jsonb not null default '[]'::jsonb;
 alter table public.products add column if not exists condition text not null default 'New';
+alter table public.products add column if not exists official_url text not null default '';
 
 create table if not exists public.admin_users (
   user_id uuid primary key references auth.users(id) on delete cascade
