@@ -299,3 +299,97 @@ html[data-theme="dark"] .policy-callout{background:#202c25}
  .policy-shell h2{font-size:21px}
  .policy-toc{gap:6px}
 }
+
+/* Hero service cards: illustration first, readable service name directly underneath. */
+.hero-art{
+ display:grid!important;
+ grid-template-columns:repeat(2,minmax(132px,1fr));
+ gap:12px;
+ width:100%;
+ max-width:404px;
+ justify-self:center;
+ align-self:center;
+}
+.hero-service,.hero-service:hover{
+ display:flex!important;
+ flex-direction:column!important;
+ justify-content:space-between!important;
+ align-items:stretch!important;
+ width:100%!important;
+ min-width:0;
+ min-height:0;
+ height:auto!important;
+ aspect-ratio:1.38/1;
+ overflow:hidden;
+ padding:0!important;
+ border:1px solid #e3eadb!important;
+ border-radius:18px!important;
+ background:rgba(255,255,255,.58)!important;
+ box-shadow:0 3px 12px rgba(30,70,42,.035)!important;
+ background-image:none!important;
+ transform:translateY(0);
+ filter:none!important;
+ color:#fff;
+ transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease;
+}
+.hero-service:hover{
+ transform:translateY(-3px);
+ border-color:#b8d4a8!important;
+ box-shadow:0 8px 20px rgba(30,70,42,.10)!important;
+}
+.hero-service-art{
+ display:block;
+ flex:1 1 auto;
+ min-height:0;
+ width:100%;
+ aspect-ratio:1.42/1;
+ background-image:url('/images/service-sprite.svg');
+ background-repeat:no-repeat;
+ background-size:200% 200%;
+ background-color:transparent;
+}
+.hero-service-art.sprite-computer{background-position:0 0}
+.hero-service-art.sprite-cctv{background-position:100% 0}
+.hero-service-art.sprite-printer{background-position:0 100%}
+.hero-service-art.sprite-cartridge{background-position:100% 100%}
+.hero-service-label{
+ display:flex!important;
+ align-items:center;
+ justify-content:center;
+ flex:0 0 auto;
+ width:100%;
+ min-height:35px;
+ padding:6px 5px;
+ border-radius:0 0 15px 15px;
+ background:linear-gradient(110deg,#147a51,#064a31);
+ color:#fff!important;
+ font-size:clamp(12px,1vw,16px);
+ font-weight:800;
+ line-height:1.2;
+ letter-spacing:-.01em;
+ text-align:center;
+ overflow-wrap:anywhere;
+}
+html[data-theme="dark"] .hero-service,html[data-theme="dark"] .hero-service:hover{
+ border-color:#344239!important;
+ background:rgba(32,44,37,.92)!important;
+ box-shadow:0 3px 14px rgba(0,0,0,.14)!important;
+}
+html[data-theme="dark"] .hero-service-label{
+ background:linear-gradient(110deg,#176b4b,#0b5138);
+ color:#f5fff6!important;
+}
+.hero-service:focus-visible{outline:3px solid var(--green);outline-offset:3px}
+@media(max-width:850px){
+ .hero{grid-template-columns:minmax(0,1fr);gap:8px}
+ .hero-art{order:2;max-width:390px;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:12px auto 0}
+ .hero-service{aspect-ratio:1.38/1}
+ .hero-service-art{aspect-ratio:1.35/1}
+ .hero-service-label{min-height:34px;font-size:13px}
+}
+@media(max-width:550px){
+ .hero-art{grid-template-columns:repeat(2,minmax(0,1fr));max-width:340px;gap:9px;margin-top:13px}
+ .hero-service,.hero-service:hover{border-radius:14px!important;aspect-ratio:1.1/1}
+ .hero-service-art{aspect-ratio:1.15/1}
+ .hero-service-label{min-height:32px;border-radius:0 0 12px 12px;font-size:12px;padding:6px 3px}
+}
