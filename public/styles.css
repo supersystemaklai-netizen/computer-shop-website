@@ -40,7 +40,7 @@ html[data-theme="dark"] .checkout-form input,html[data-theme="dark"] .checkout-f
 
 /* Ensure the service artwork fills its reserved icon frame, never the title area. */
 .quick-service-icon{position:relative;display:grid;place-items:center;width:100%;height:112px;flex:0 0 112px;overflow:hidden;border-radius:12px;background:#fff;padding:0}
-.quick-service-icon img{position:absolute;width:290%;height:290%;max-width:none;max-height:none;object-fit:contain;display:block;inset:auto}
+.quick-service-icon img{position:absolute;top:50%;left:50%;width:290%;height:290%;max-width:none;max-height:none;object-fit:contain;display:block;transform:translate(-50%,-50%)}
 .quick-service-card{display:flex;align-items:center;justify-content:flex-start;min-height:205px;padding:14px 12px;gap:9px;white-space:normal;overflow:hidden}
 .quick-service-card>span:nth-child(2){line-height:1.35;min-height:35px;display:flex;align-items:center;justify-content:center}
 .quick-service-arrow{font-size:12px;line-height:1.2}
