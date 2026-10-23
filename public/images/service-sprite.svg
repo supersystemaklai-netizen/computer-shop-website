@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="768" height="768" viewBox="0 0 768 768" fill="none" role="img" aria-labelledby="title desc">
+<title id="title">Computer, CCTV, printer and cartridge service illustrations</title>
+<desc id="desc">Four original blue-and-green technology service illustrations arranged in equally sized transparent quadrants.</desc>
+<defs>
+ <linearGradient id="blue" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#52C7FF"/><stop offset="1" stop-color="#1269C7"/></linearGradient>
+ <linearGradient id="deepBlue" x1="0" y1="0" x2="0.9" y2="1"><stop stop-color="#247BD4"/><stop offset="1" stop-color="#143D7A"/></linearGradient>
+ <linearGradient id="screen" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#103E80"/><stop offset=".55" stop-color="#168EE8"/><stop offset="1" stop-color="#4CD0FF"/></linearGradient>
+ <linearGradient id="metal" x1="0" y1="0" x2="0.9" y2="1"><stop stop-color="#FAFCFD"/><stop offset=".55" stop-color="#CDD8DF"/><stop offset="1" stop-color="#8798A5"/></linearGradient>
+ <linearGradient id="black" x1="0" y1="0" x2=".2" y2="1"><stop stop-color="#49535B"/><stop offset=".45" stop-color="#171D22"/><stop offset="1" stop-color="#30363B"/></linearGradient>
+ <linearGradient id="skin" x1="0" y1="0" x2=".8" y2="1"><stop stop-color="#FFDDB4"/><stop offset="1" stop-color="#EBA16D"/></linearGradient>
+ <linearGradient id="green" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#00B57A"/><stop offset="1" stop-color="#B4F65A"/></linearGradient>
+ <linearGradient id="red" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#F65D79"/><stop offset="1" stop-color="#B51B55"/></linearGradient>
+ <linearGradient id="shirt" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#45BBF4"/><stop offset="1" stop-color="#1765B5"/></linearGradient>
+ <filter id="shadow" x="-25%" y="-25%" width="150%" height="165%"><feGaussianBlur in="SourceAlpha" stdDeviation="5"/><feOffset dy="7"/><feComponentTransfer><feFuncA type="linear" slope=".18"/></feComponentTransfer><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+ <g id="technician">
+  <path d="M37 114 25 176Q22 185 31 189L44 194 57 142 67 193 91 194 83 121Z" fill="#163E6C" stroke="#193244" stroke-width="3" stroke-linejoin="round"/>
+  <path d="M47 110 33 154 50 163 62 130 67 163 87 157 79 111Z" fill="url(#deepBlue)" stroke="#193244" stroke-width="3" stroke-linejoin="round"/>
+  <path d="M39 116 31 145 48 154 58 129" fill="none" stroke="#80D9FF" stroke-width="4"/>
+  <path d="M58 183 59 216 73 216 78 180M81 184 88 213 102 210 96 176" fill="url(#black)" stroke="#193244" stroke-width="3" stroke-linejoin="round"/>
+  <path d="M56 211 53 219Q52 224 58 226H77Q82 223 78 217L72 212M86 208 84 217Q84 223 91 223H107Q112 218 106 213L100 207" fill="#5E4136" stroke="#21303A" stroke-width="3" stroke-linejoin="round"/>
+  <path d="M39 69Q42 52 62 52Q81 54 83 76L79 112Q63 125 43 111Z" fill="url(#shirt)" stroke="#193244" stroke-width="3"/>
+  <path d="M41 79 27 98 35 110 50 91M79 82 94 101 86 112 73 94" fill="url(#skin)" stroke="#193244" stroke-width="3" stroke-linejoin="round"/>
+  <path d="M43 107 38 140 82 141 76 107Q61 116 43 107Z" fill="#1461A7" stroke="#193244" stroke-width="3"/>
+  <path d="M49 118 50 140M70 117 70 140" stroke="#9AE8FF" stroke-width="3"/>
+  <circle cx="59" cy="44" r="25" fill="url(#skin)" stroke="#193244" stroke-width="3"/>
+  <path d="M34 42Q29 15 56 12Q79 13 85 35L80 42 70 32 53 34 42 43Z" fill="#172F4C" stroke="#193244" stroke-width="3" stroke-linejoin="round"/>
+  <path d="M29 34Q47 16 75 25L88 35 53 31 38 43Z" fill="url(#blue)" stroke="#193244" stroke-width="3" stroke-linejoin="round"/>
+  <path d="M47 47Q52 39 57 47M65 47Q70 39 75 47" stroke="#193244" stroke-width="3" stroke-linecap="round"/>
+  <circle cx="53" cy="47" r="2.7" fill="#152C3B"/><circle cx="70" cy="47" r="2.7" fill="#152C3B"/>
+  <path d="M53 59Q63 67 74 58" stroke="#9A4A35" stroke-width="3" stroke-linecap="round"/>
+  <path d="M45 84 59 94 75 84" fill="#F8FCFF" stroke="#193244" stroke-width="2.5" stroke-linejoin="round"/>
+  <path d="M51 95 50 110M68 95 68 110" stroke="#F7CF51" stroke-width="3"/>
+  <path d="M31 100 22 118 30 123 43 109M90 100 100 113 92 121 81 109" fill="url(#skin)" stroke="#193244" stroke-width="3"/>
+  <path d="M24 114Q16 110 14 120L18 128 31 128 36 120Z" fill="#FAFCFD" stroke="#193244" stroke-width="2.5"/>
+  <path d="M92 113Q99 109 104 116L105 125 92 129 85 120Z" fill="#FAFCFD" stroke="#193244" stroke-width="2.5"/>
+ </g>
+</defs>
+
+<!-- COMPUTER REPAIR: tower, bright monitor and technician -->
+<g transform="translate(8 7)" filter="url(#shadow)">
+ <path d="M34 245 48 88Q49 81 57 80L107 91 103 258 49 254Q32 254 34 245Z" fill="url(#black)" stroke="#152630" stroke-width="4" stroke-linejoin="round"/>
+ <path d="M46 101 89 108 87 119 45 112Z" fill="#687681"/>
+ <rect x="47" y="128" width="32" height="5" rx="2.5" fill="#778994"/>
+ <rect x="45" y="141" width="32" height="5" rx="2.5" fill="#778994"/>
+ <circle cx="69" cy="163" r="4.5" fill="#48C9FF"/><circle cx="69" cy="180" r="3.5" fill="#A5F36D"/>
+ <path d="M43 197 84 204M42 211 83 218M42 225 82 232" stroke="#65727B" stroke-width="3"/>
+ <path d="M98 111 262 95Q270 95 271 104L278 215Q279 222 270 224L105 238Q97 237 96 228L91 122Q90 114 98 111Z" fill="#17232B" stroke="#152630" stroke-width="4"/>
+ <path d="M106 119 259 105 266 207 111 222Z" fill="url(#screen)" stroke="#6A7F8C" stroke-width="3" stroke-linejoin="round"/>
+ <path d="M115 130 149 127 151 133 116 137Z" fill="#B6EAFF" opacity=".8"/>
+ <rect x="117" y="144" width="25" height="59" rx="3" fill="#E8F5FF"/>
+ <rect x="123" y="151" width="13" height="7" rx="1.5" fill="#3C7BD5"/><rect x="123" y="164" width="13" height="7" rx="1.5" fill="#22B1CD"/><rect x="123" y="177" width="13" height="7" rx="1.5" fill="#67BE83"/><rect x="123" y="190" width="13" height="7" rx="1.5" fill="#EFBC4B"/>
+ <path d="M156 144 246 135M156 153 248 145M156 164 246 156M156 175 252 167M156 186 239 180M156 197 250 192" stroke="#DAF7FF" stroke-width="3" opacity=".9" stroke-linecap="round"/>
+ <path d="M178 225 175 249 154 260 221 258 201 246 198 223Z" fill="url(#metal)" stroke="#193244" stroke-width="3" stroke-linejoin="round"/>
+ <path d="M128 260 249 256 275 270 101 276Z" fill="url(#metal)" stroke="#193244" stroke-width="3" stroke-linejoin="round"/>
+ <path d="M130 264 244 260 251 264 137 268Z" fill="#52616A"/>
+ <path d="M142 279 244 277 266 288 125 293Z" fill="#26323B" stroke="#152630" stroke-width="3"/>
+ <path d="M144 282 235 280 249 286 137 289Z" fill="#42515D"/>
+ <g transform="translate(214 5) scale(.93)">
+  <use href="#technician"/>
+  <path d="M94 87 119 56 126 61 109 97 101 104 93 99Z" fill="#DDE5E9" stroke="#193244" stroke-width="3" stroke-linejoin="round"/>
+  <path d="M112 55 119 43 132 49 126 64Z" fill="#EB4E5F" stroke="#193244" stroke-width="3" stroke-linejoin="round"/>
+ </g>
+ <circle cx="285" cy="60" r="15" fill="#D4F66A" stroke="#173D2F" stroke-width="3"/>
+ <path d="M277 60 283 66 294 53" stroke="#176B4B" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+
+<!-- CCTV REPAIR: dome camera, camera kit and technician -->
+<g transform="translate(390 7)" filter="url(#shadow)">
+ <path d="M92 102C100 58 145 27 194 27C243 27 282 55 295 101" stroke="url(#blue)" stroke-width="13" stroke-linecap="round"/>
+ <path d="M96 102C108 63 151 44 196 44C240 44 273 63 286 102" stroke="url(#red)" stroke-width="11" stroke-linecap="round"/>
+ <path d="M108 101Q110 77 134 68L244 68Q271 78 275 101L282 161Q277 183 256 191L125 189Q103 182 101 160Z" fill="url(#metal)" stroke="#172F3C" stroke-width="4"/>
+ <path d="M124 88Q146 76 184 78H236Q258 86 264 109L269 147Q264 168 244 172L137 172Q117 168 113 149L114 111Q114 96 124 88Z" fill="#BFCBD2" stroke="#72828E" stroke-width="3"/>
+ <ellipse cx="192" cy="128" rx="63" ry="54" fill="url(#black)" stroke="#EDF5F8" stroke-width="5"/>
+ <ellipse cx="192" cy="128" rx="48" ry="43" fill="#121D25" stroke="#7B8D98" stroke-width="5"/>
+ <ellipse cx="192" cy="128" rx="31" ry="29" fill="#142E49" stroke="#415967" stroke-width="4"/>
+ <ellipse cx="192" cy="128" rx="21" ry="20" fill="url(#screen)"/>
+ <ellipse cx="192" cy="128" rx="12" ry="13" fill="#061522"/>
+ <ellipse cx="186" cy="121" rx="5" ry="6" fill="#C5F1FF"/>
+ <circle cx="151" cy="105" r="4" fill="#DAE4E9"/><circle cx="231" cy="104" r="4" fill="#DAE4E9"/>
+ <circle cx="147" cy="150" r="4" fill="#DAE4E9"/><circle cx="237" cy="151" r="4" fill="#DAE4E9"/>
+ <path d="M128 186 124 206 261 207 256 185" fill="#D4DDE2" stroke="#172F3C" stroke-width="4"/>
+ <path d="M151 209 151 222 233 222 233 209" fill="url(#black)" stroke="#172F3C" stroke-width="3"/>
+ <path d="M145 221 134 243 247 243 236 221Z" fill="url(#metal)" stroke="#172F3C" stroke-width="4" stroke-linejoin="round"/>
+ <rect x="139" y="232" width="108" height="10" rx="4" fill="url(#black)"/>
+ <circle cx="233" cy="236" r="3" fill="#49D4A0"/>
+ <g transform="translate(10 89) scale(.94)">
+  <use href="#technician"/>
+  <path d="M95 119 113 111 124 123 111 137 97 134Z" fill="#D5F0FA" stroke="#193244" stroke-width="3"/>
+  <rect x="7" y="168" width="42" height="31" rx="5" fill="#C93C4C" stroke="#193244" stroke-width="3"/>
+  <path d="M13 168 19 158H38L44 168" fill="#E95B6B" stroke="#193244" stroke-width="3" stroke-linejoin="round"/>
+  <path d="M27 175 27 192" stroke="#F3BC56" stroke-width="3"/>
+ </g>
+ <g transform="translate(234 216) scale(.43)">
+  <path d="M0 20Q3 2 20 2H74Q90 5 92 22V42H0Z" fill="url(#metal)" stroke="#193244" stroke-width="5"/>
+  <ellipse cx="45" cy="20" rx="21" ry="14" fill="#14232D" stroke="#193244" stroke-width="4"/>
+  <ellipse cx="45" cy="20" rx="9" ry="8" fill="url(#screen)"/>
+  <path d="M15 43 8 58H81L74 43Z" fill="#BCCAD3" stroke="#193244" stroke-width="4"/>
+ </g>
+</g>
+
+<!-- PRINTER REPAIR: compact ink printer with paper and technician -->
+<g transform="translate(8 393)" filter="url(#shadow)">
+ <g transform="translate(1 0) scale(.96)">
+  <use href="#technician"/>
+  <path d="M94 108 112 89 122 95 104 120" fill="#D5DEE3" stroke="#193244" stroke-width="3" stroke-linecap="round"/>
+  <path d="M111 89 120 78 132 86 123 98Z" fill="#F1B34A" stroke="#193244" stroke-width="3" stroke-linejoin="round"/>
+ </g>
+ <path d="M122 109 226 96 262 118 262 168 143 185 111 161Z" fill="#EEF4F6" stroke="#193244" stroke-width="4" stroke-linejoin="round"/>
+ <path d="M144 104 227 92 242 105 157 118Z" fill="#FFFFFF" stroke="#A0B1BA" stroke-width="2"/>
+ <path d="M151 119 241 106 241 157 151 170Z" fill="#FFFFFF" stroke="#B6C4CC" stroke-width="2"/>
+ <path d="M162 133 224 124M163 143 224 134M163 153 205 147" stroke="#D4DDE3" stroke-width="3" stroke-linecap="round"/>
+ <path d="M94 173 121 142 251 128 288 153 287 213 127 235 93 210Z" fill="url(#black)" stroke="#162B38" stroke-width="4" stroke-linejoin="round"/>
+ <path d="M94 173 126 185 126 235 93 210Z" fill="#1269C7" stroke="#173347" stroke-width="3"/>
+ <path d="M251 128 288 153 287 213 251 202Z" fill="#1C2932" stroke="#173347" stroke-width="3"/>
+ <path d="M119 178 254 159 261 196 128 217Z" fill="#F4F7F8" stroke="#142A38" stroke-width="4" stroke-linejoin="round"/>
+ <path d="M132 211 253 194 253 205 132 224Z" fill="#9DAEB8" stroke="#142A38" stroke-width="3"/>
+ <path d="M143 227 246 213 245 247 145 261Z" fill="#F9FCFD" stroke="#9BAAB4" stroke-width="3" stroke-linejoin="round"/>
+ <path d="M150 240 239 229 240 245 151 257Z" fill="#FFFFFF"/>
+ <path d="M115 163 139 160 143 171 119 174Z" fill="url(#green)"/>
+ <rect x="158" y="156" width="37" height="5" rx="2.5" fill="#5E6D76" transform="rotate(-8 158 156)"/>
+ <circle cx="218" cy="150" r="4" fill="#3FD3A1"/>
+ <circle cx="229" cy="149" r="4" fill="#5BC1F6"/>
+ <circle cx="240" cy="147" r="4" fill="#F1C04E"/>
+ <path d="M108 268 270 246 284 262 122 287Z" fill="url(#metal)" stroke="#193244" stroke-width="3" stroke-linejoin="round"/>
+ <path d="M134 273 250 256" stroke="#879AA6" stroke-width="3"/>
+</g>
+
+<!-- TONER / CARTRIDGE REFILL: toner drum, desktop printer and vivid refill bottles -->
+<g transform="translate(390 394)" filter="url(#shadow)">
+ <g transform="translate(84 10) rotate(-8 109 58)">
+  <path d="M16 48 28 20Q33 8 49 8H171Q183 9 188 22L201 49 192 74Q187 86 173 86H43Q26 86 23 73Z" fill="url(#black)" stroke="#14232C" stroke-width="4" stroke-linejoin="round"/>
+  <path d="M29 37 187 37 194 58 22 59Z" fill="#252E35" stroke="#111A20" stroke-width="3"/>
+  <path d="M34 42 182 42 188 55 29 55Z" fill="url(#green)"/>
+  <rect x="44" y="18" width="22" height="14" rx="3" fill="#687680"/><rect x="145" y="18" width="22" height="14" rx="3" fill="#687680"/>
+  <path d="M46 8 54 0H157L168 8" fill="#687680" stroke="#111A20" stroke-width="3" stroke-linejoin="round"/>
+  <circle cx="32" cy="62" r="6" fill="#6C7C85"/><circle cx="190" cy="62" r="6" fill="#6C7C85"/>
+ </g>
+ <path d="M47 156 61 121 84 113 111 123 122 154 120 207 42 207Z" fill="#222A30" stroke="#14232C" stroke-width="4" stroke-linejoin="round"/>
+ <path d="M43 160 120 157 130 174 40 180Z" fill="#4B555D" stroke="#14232C" stroke-width="3"/>
+ <path d="M57 198 125 194 138 205 49 211Z" fill="#121B20" stroke="#14232C" stroke-width="3"/>
+ <path d="M145 160 266 151 298 176 298 227 164 247 136 224Z" fill="url(#black)" stroke="#14232C" stroke-width="4" stroke-linejoin="round"/>
+ <path d="M163 170 273 163 286 176 174 190Z" fill="#5B6770"/>
+ <path d="M164 194 281 179 283 217 165 233Z" fill="#10171C" stroke="#111B22" stroke-width="3"/>
+ <path d="M183 205 262 195 270 208 191 218Z" fill="#34414A"/>
+ <path d="M185 224 268 213 268 225 186 237Z" fill="#6A7D86"/>
+ <circle cx="274" cy="231" r="5" fill="#3DD9A7"/>
+ <g transform="translate(39 203)">
+  <path d="M0 20 7 0H25L31 20V69H0Z" fill="#1D252C" stroke="#152733" stroke-width="3" stroke-linejoin="round"/>
+  <path d="M3 40H28V62H3Z" fill="#F9D23D"/>
+  <path d="M42 16 49 0H67L74 16V72H42Z" fill="#223A68" stroke="#152733" stroke-width="3" stroke-linejoin="round"/>
+  <path d="M45 40H71V65H45Z" fill="#3799EE"/>
+  <path d="M85 12 91 0H108L115 12V75H85Z" fill="#F2F4F3" stroke="#152733" stroke-width="3" stroke-linejoin="round"/>
+  <path d="M88 36H112V71H88Z" fill="#EB3F7F"/>
+  <path d="M126 12 132 0H149L155 12V75H126Z" fill="#F7F8F4" stroke="#152733" stroke-width="3" stroke-linejoin="round"/>
+  <path d="M129 36H152V71H129Z" fill="#02A9DB"/>
+  <path d="M166 12 172 0H189L195 12V75H166Z" fill="#F6F7F3" stroke="#152733" stroke-width="3" stroke-linejoin="round"/>
+  <path d="M169 36H192V71H169Z" fill="#E8CA34"/>
+  <path d="M206 12 212 0H229L235 12V75H206Z" fill="#F6F7F3" stroke="#152733" stroke-width="3" stroke-linejoin="round"/>
+  <path d="M209 36H232V71H209Z" fill="#4FB46E"/>
+  <path d="M247 12 253 0H270L276 12V75H247Z" fill="#F6F7F3" stroke="#152733" stroke-width="3" stroke-linejoin="round"/>
+  <path d="M250 36H273V71H250Z" fill="#E9426C"/>
+ </g>
+ <g transform="translate(248 236) rotate(4)">
+  <path d="M0 13 9 0H54L63 13V45H0Z" fill="#181F25" stroke="#111A20" stroke-width="3"/>
+  <path d="M5 16H58V40H5Z" fill="#05B5D0"/>
+  <path d="M19 16H44V40H19Z" fill="#F4F6F5"/>
+ </g>
+ <g transform="translate(295 251) rotate(-8)">
+  <path d="M0 10 7 0H36L42 10V32H0Z" fill="#F1CA2E" stroke="#182C35" stroke-width="3"/>
+  <path d="M6 13H36V28H6Z" fill="#1E2C36"/>
+ </g>
+</g>
+</svg>
