@@ -53,23 +53,13 @@ function openProductDetail(p){
  if(!p)return;
  const details=Array.isArray(p.product_details)?p.product_details.map(s=>typeof s==='string'?{name:s,value:''}:{name:s.name||s.label||'Detail',value:s.value||s.detail||''}):[];
  const specs=Array.isArray(p.specifications)?p.specifications.map(s=>typeof s==='string'?{name:s,value:''}:{name:s.name||s.label||'Specification',value:s.value||s.detail||''}):[];
- const fields=[
-  ['Brand / Manufacturer',p.brand||'Not provided — confirm with store'],
-  ['Model number',p.model_number||'Not provided — confirm exact model'],
-  ['Category',p.category||'Product'],
-  ['Condition',p.condition||'New'],
-  ['Availability',Number(p.stock)>0?('In stock ('+Number(p.stock)+')'):'Please contact us to confirm availability'],
-  ['Warranty',p.warranty||'Warranty details not listed — please confirm before purchase'],
-  ['Compatibility',p.compatibility||'Please confirm compatibility before purchase']
- ];
- const fieldHtml=fields.map(([k,v])=>'<div class="product-detail-row"><span>'+esc(k)+'</span><b>'+esc(v)+'</b></div>').join('');
  const detailHtml=details.length?'<h3>Product Details</h3><div class="product-specs">'+details.map(d=>'<div class="product-detail-row"><span>'+esc(d.name)+'</span><b>'+esc(d.value||'Please contact us to confirm')+'</b></div>').join('')+'</div>':'';
  const specHtml=specs.length?'<h3>Specifications</h3><div class="product-specs">'+specs.map(s=>'<div class="product-detail-row"><span>'+esc(s.name)+'</span><b>'+esc(s.value||'Contact us to confirm')+'</b></div>').join('')+'</div>':'<p class="detail-note">Detailed specifications have not been entered for this item yet. Please message us to confirm the exact model and specs.</p>';
  const officialLink=p.official_url&&/^https?:\/\//i.test(p.official_url)?'<p class="official-product-link"><a href="'+esc(p.official_url)+'" target="_blank" rel="noopener noreferrer">View manufacturer product page ↗</a></p>':'';
  const mainPrice=Number(p.offer_price||p.price||0);
  const regular=Number(p.offer_price)>0&&Number(p.offer_price)<Number(p.price)?'<s>'+money(p.price)+'</s> ':'';
  const img=p.image?'<img class="product-detail-image" src="'+esc(p.image)+'" alt="'+esc(p.name)+'" onerror="this.style.display=\'none\'">':'<div class="product-detail-placeholder">🛍️</div>';
- showDrawer('Product details','<div class="product-detail">'+img+'<div class="category">'+esc(p.category||'Product')+'</div><h2>'+esc(p.name)+'</h2><div class="product-detail-price">'+regular+'<strong>'+money(mainPrice)+'</strong></div><p class="product-detail-description">'+esc(p.description||'Contact us for product details and current availability.')+'</p><div class="product-detail-facts">'+fieldHtml+'</div>'+detailHtml+specHtml+officialLink+'<div class="product-detail-actions"><button type="button" class="primary" id="detailAddToCart">Add to cart</button><a class="secondary" target="_blank" rel="noopener" href="'+wa('Hello Super System, I need details/availability for '+p.name+(p.model_number?' (Model: '+p.model_number+')':'')+'. Please confirm model, specs, warranty and price.')+'">Ask on WhatsApp</a></div></div>');
+ showDrawer('Product details','<div class="product-detail">'+img+'<div class="category">'+esc(p.category||'Product')+'</div><h2>'+esc(p.name)+'</h2><div class="product-detail-price">'+regular+'<strong>'+money(mainPrice)+'</strong></div><p class="product-detail-description">'+esc(p.description||'Contact us for product details and current availability.')+'</p>'+detailHtml+specHtml+officialLink+'<div class="product-detail-actions"><button type="button" class="primary" id="detailAddToCart">Add to cart</button><a class="secondary" target="_blank" rel="noopener" href="'+wa('Hello Super System, I need details/availability for '+p.name+(p.model_number?' (Model: '+p.model_number+')':'')+'. Please confirm model, specs, warranty and price.')+'">Ask on WhatsApp</a></div></div>');
  $('#detailAddToCart').onclick=()=>{cart[p.id]=(cart[p.id]||0)+1;saveCart();toast('Added to cart');closeDrawer()};
 }
 function saveCart(){localStorage.setItem('ss_cart',JSON.stringify(cart));$('#cartCount').textContent=Object.values(cart).reduce((a,n)=>a+n,0)}
