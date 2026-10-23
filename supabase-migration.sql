@@ -90,60 +90,24 @@ drop policy if exists "Admins can delete services" on public.service_catalog;
 create policy "Admins can delete services" on public.service_catalog for delete to authenticated using (public.is_admin());
 
 -- Explicit Data API privileges, required for projects where new tables are not auto-exposed.
--- Keep anonymous browser access read-only except for creating order requests.
+-- Apply least-privilege table grants for both anonymous and signed-in browser clients.
+revoke all on public.admin_users from anon, authenticated;
 revoke insert, update, delete, truncate, references, trigger on public.service_catalog from anon;
+revoke truncate, references, trigger on public.service_catalog from authenticated;
 revoke insert, update, delete, truncate, references, trigger on public.site_settings from anon;
+revoke insert, delete, truncate, references, trigger on public.site_settings from authenticated;
 revoke insert, update, delete, truncate, references, trigger on public.products from anon;
+revoke truncate, references, trigger on public.products from authenticated;
 revoke select, update, delete, truncate, references, trigger on public.orders from anon;
+revoke delete, truncate, references, trigger on public.orders from authenticated;
 grant select on public.service_catalog to anon, authenticated;
 grant insert, update, delete on public.service_catalog to authenticated;
-grant select on public.site_settings to anon, authenticated;
-grant update on public.site_settings to authenticated;
+grant select, update on public.site_settings to authenticated;
+grant select on public.site_settings to anon;
 grant select on public.products to anon, authenticated;
 grant insert, update, delete on public.products to authenticated;
 grant insert on public.orders to anon, authenticated;
 grant select, update on public.orders to authenticated;
-
-insert into public.service_catalog (id,title,description,image,rates,rate_note,active,sort_order) values
-('computer-services','Computer Services And Repairs','Professional computer repair, installation & data recovery services with 30-day warranty guarantee. Fast, affordable fixes for hardware failures, virus removal, and system optimization by certified local technicians.','/images/computer-services.webp',
-'[{"name":"Data Backup","charges":"₹250"},{"name":"System Slow","charges":"Will Quote After Inspection"},{"name":"Power Problems","charges":"Will Quote After Inspection"},{"name":"General Service","charges":"Will Quote After Inspection"},{"name":"Other Troubleshooting","charges":"Will Quote After Inspection"},{"name":"Networking Issues","charges":"Will Quote After Inspection"},{"name":"Hardware Issues","charges":"Will Quote After Inspection"},{"name":"Software Installation","charges":"Will Quote After Inspection"},{"name":"System Upgradation","charges":"Will Quote After Inspection"},{"name":"Other","charges":"Will Quote After Inspection"}]'::jsonb,
-'Price may vary after inspection.',true,1),
-('cctv-repair','CCTV Repair Service','We provide comprehensive onsite CCTV repair, installation, and AMC services with a 30-day repair warranty. Our comprehensive service includes a 1-year warranty on replaced parts.','/images/cctv-repair.webp',
-'[{"name":"Camera Blur","charges":"₹250"},{"name":"DVR Online Issue","charges":"₹350"},{"name":"No Signal","charges":"₹350"},{"name":"No Recording","charges":"₹350"},{"name":"Night Vision Problem","charges":"₹250"},{"name":"Installation","charges":"Will Quote After Inspection"},{"name":"Some Cameras - No Display","charges":"₹250"},{"name":"Other","charges":"Will Quote After Inspection"}]'::jsonb,
-'Price may vary after inspection.',true,2),
-('printer-repair','Printer Repair And Installation Service','We offer expert computer printer repair and installation services backed by our 30-day warranty guarantee. Our comprehensive service includes a 1-year warranty on replaced parts.','/images/printer-repair.webp',
-'[{"name":"Printer Installation","charges":"Will Quote After Inspection"},{"name":"Blank Paper Print","charges":"Will Quote After Inspection"},{"name":"Pages Not Loading","charges":"Will Quote After Inspection"},{"name":"Printer Not Detect","charges":"Will Quote After Inspection"},{"name":"Scanner Problem","charges":"Will Quote After Inspection"},{"name":"Black/Faint Print","charges":"Will Quote After Inspection"},{"name":"Paper Jam","charges":"Will Quote After Inspection"},{"name":"Printer Servicing","charges":"Will Quote After Inspection"},{"name":"Printer Dead","charges":"Will Quote After Inspection"},{"name":"Other","charges":"Will Quote After Inspection"}]'::jsonb,
-'Price may vary after inspection.',true,3),
-('cartridge-refill','Printer Cartridge Refill Service','We provide professional onsite refill services for all printer toner types with quick turnaround and guaranteed quality.','/images/cartridge-refill.webp',
-'[{"name":"Laser Printer Cartridge Refill - HP","charges":"₹300"},{"name":"Laser Printer Cartridge Refill - Brother","charges":"₹350"},{"name":"Laser Printer Cartridge Refill - Canon","charges":"₹300"},{"name":"Laser Printer Cartridge Refill - Other","charges":"₹300"},{"name":"Inktank Printer Cartridge Refill","charges":"₹150"},{"name":"Dot Matrix Printer Ribbon Change","charges":"₹99"},{"name":"Other Printer Service","charges":"₹250"},{"name":"Printer Cartridge Refill Service - Kyocera","charges":"₹599"}]'::jsonb,
-'Price may vary after inspection.',true,4)
-on conflict (id) do nothing;
-
-create table if not exists public.orders (
-  id uuid primary key default gen_random_uuid(),
-  customer_name text not null,
-  phone text not null,
-  fulfilment text not null default 'Akola shop pickup',
-  notes text not null default '',
-  items jsonb not null default '[]'::jsonb,
-  total numeric(12,2) not null default 0,
-  status text not null default 'Request received',
-  created_at timestamptz not null default now()
-);
-alter table public.orders enable row level security;
-drop policy if exists "Anyone can submit order requests" on public.orders;
-create policy "Anyone can submit order requests" on public.orders for insert to anon, authenticated
-with check (length(trim(customer_name)) between 1 and 100 and length(trim(phone)) between 10 and 15 and length(notes) <= 2000 and total >= 0);
-drop policy if exists "Admins can view orders" on public.orders;
-create policy "Admins can view orders" on public.orders for select to authenticated using (public.is_admin());
-drop policy if exists "Admins can update orders" on public.orders;
-create policy "Admins can update orders" on public.orders for update to authenticated using (public.is_admin()) with check (public.is_admin());
-grant insert on public.orders to anon, authenticated;
-grant select, update on public.orders to authenticated;
-grant all on public.orders to service_role;
-
-insert into public.site_settings (id) values (1) on conflict (id) do nothing;
-
 
 -- Secure any legacy enquiries table that the older storefront may have created.
 -- This deployment now collects order/service requests through public.orders.
