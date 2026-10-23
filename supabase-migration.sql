@@ -16,6 +16,12 @@ create table if not exists public.products (
 alter table public.products add column if not exists active boolean not null default true;
 alter table public.products add column if not exists sort_order integer not null default 0;
 alter table public.products add column if not exists updated_at timestamptz not null default now();
+alter table public.products add column if not exists brand text not null default '';
+alter table public.products add column if not exists model_number text not null default '';
+alter table public.products add column if not exists warranty text not null default '';
+alter table public.products add column if not exists compatibility text not null default '';
+alter table public.products add column if not exists specifications jsonb not null default '[]'::jsonb;
+alter table public.products add column if not exists condition text not null default 'New';
 
 create table if not exists public.admin_users (
   user_id uuid primary key references auth.users(id) on delete cascade
