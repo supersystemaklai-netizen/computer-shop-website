@@ -104,3 +104,23 @@ html[data-theme="dark"] .hero-service:hover{border-color:var(--lime)}
 .hero-service:hover{background-color:transparent;border-color:transparent;box-shadow:none;filter:brightness(1.08);transform:translateY(-2px)}
 html[data-theme="dark"] .hero-service,
 html[data-theme="dark"] .hero-service:hover{background-color:transparent;border-color:transparent;box-shadow:none}
+
+/* Use the original individual service images; multiply blends their white matte into the card in dark mode. */
+.hero-art{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;width:100%;max-width:310px;justify-self:center;align-self:center}
+.hero-service,.hero-service:hover{
+  width:100%;height:108px;aspect-ratio:auto;min-width:0;min-height:0;
+  padding:7px 8px;gap:2px;border:1px solid var(--line);border-radius:16px;
+  background:#fff;color:#192a24;background-image:none!important;background-position:initial;
+  background-size:auto;box-shadow:0 4px 12px #193d2409;overflow:hidden;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+}
+.hero-service img{display:block!important;width:100%;height:72px;min-height:0;flex:0 0 72px;object-fit:contain;mix-blend-mode:normal}
+.hero-service b{display:block!important;font-size:12px;line-height:1.1;color:#192a24}
+.hero-service:hover{border-color:var(--green);transform:translateY(-2px)}
+html[data-theme="dark"] .hero-service,html[data-theme="dark"] .hero-service:hover{
+  background:#202c25;color:#eef5ef;border-color:#344239;box-shadow:none
+}
+html[data-theme="dark"] .hero-service img{mix-blend-mode:multiply}
+html[data-theme="dark"] .hero-service b{color:#eef5ef}
+@media(max-width:850px){.hero-art{display:grid!important;grid-template-columns:repeat(2,minmax(0,118px));max-width:260px;width:100%;justify-self:center;margin:0 auto 2px}.hero-service{height:104px}.hero-service img{height:68px;flex-basis:68px}}
+@media(max-width:550px){.hero-art{grid-template-columns:repeat(2,minmax(0,112px));max-width:240px}.hero-service{height:98px}.hero-service img{height:62px;flex-basis:62px}}
