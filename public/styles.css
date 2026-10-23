@@ -663,3 +663,68 @@ html[data-theme="dark"] .footer-developer-credit a{color:#d5f36a}
  .footer-partner-arrow{width:31px;height:31px;border-radius:10px}
  .footer-partner-copy small{font-size:10px}
 }
+
+
+/* Compact footer partner buttons */
+.footer-partner-links{
+ width:min(100%,760px);
+ gap:12px;
+ margin:18px auto 10px;
+ padding-bottom:12px;
+}
+.footer-partner-card{
+ grid-template-columns:38px minmax(0,1fr) 30px;
+ gap:9px;
+ min-height:66px;
+ padding:9px 11px;
+ border-radius:16px;
+ box-shadow:0 4px 12px rgba(4,30,19,.10),inset 0 1px 0 rgba(229,255,232,.06);
+}
+.footer-partner-mark{
+ width:36px;
+ height:36px;
+ flex-basis:36px;
+ font-size:14px;
+ letter-spacing:-.7px;
+}
+.footer-partner-copy{gap:3px}
+.footer-partner-copy strong{font-size:14px;line-height:1.15}
+.footer-partner-copy small{font-size:10px;line-height:1.25}
+.footer-partner-arrow{
+ width:28px;
+ height:28px;
+ border-radius:9px;
+ font-size:19px;
+}
+.footer-developer-credit{margin-top:11px;gap:9px}
+.footer-developer-credit p{font-size:12px}
+.footer-developer-credit>span{width:30px}
+@media(max-width:760px){
+ .footer-partner-links{
+  width:100%;
+  gap:9px;
+  margin:14px auto 10px;
+  padding-bottom:11px;
+ }
+ .footer-partner-card{
+  grid-template-columns:36px minmax(0,1fr) 28px;
+  min-height:60px;
+  padding:8px 10px;
+  gap:9px;
+  border-radius:14px;
+ }
+ .footer-partner-mark{width:34px;height:34px;flex-basis:34px;font-size:13px}
+ .footer-partner-copy strong{font-size:13px}
+ .footer-partner-copy small{font-size:10px}
+ .footer-partner-arrow{width:26px;height:26px;font-size:18px}
+ .footer-developer-credit{margin-top:10px;gap:7px}
+ .footer-developer-credit>span{width:20px}
+ .footer-developer-credit p{font-size:11px}
+}
+@media(max-width:390px){
+ .footer-partner-card{grid-template-columns:32px minmax(0,1fr) 25px;min-height:56px;padding:7px 8px;gap:7px}
+ .footer-partner-mark{width:30px;height:30px;flex-basis:30px;font-size:12px}
+ .footer-partner-copy strong{font-size:12px}
+ .footer-partner-copy small{font-size:9px}
+ .footer-partner-arrow{width:24px;height:24px;font-size:16px}
+}
