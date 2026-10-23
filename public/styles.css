@@ -87,3 +87,20 @@ html[data-theme="dark"] .hero-service:hover{border-color:var(--lime)}
  .hero-service img{height:62px;flex-basis:62px}
  .quick-service-icon{height:100px;flex-basis:100px}
 }
+
+/* Transparent PNG sprite: checkerboard background is alpha, so no white tiles in dark mode. */
+.hero-service{
+  width:100%;height:auto;aspect-ratio:1/1;min-width:0;min-height:0;padding:0;
+  border:0;border-radius:0;background-color:transparent;
+  background-image:url('/images/service-sprite.png');
+  background-repeat:no-repeat;background-size:200% 200%;
+  box-shadow:none;gap:0;overflow:visible;
+}
+.hero-service img,.hero-service b{display:none!important}
+.hero-service.sprite-computer{background-position:0 0}
+.hero-service.sprite-cctv{background-position:100% 0}
+.hero-service.sprite-printer{background-position:0 100%}
+.hero-service.sprite-cartridge{background-position:100% 100%}
+.hero-service:hover{background-color:transparent;border-color:transparent;box-shadow:none;filter:brightness(1.08);transform:translateY(-2px)}
+html[data-theme="dark"] .hero-service,
+html[data-theme="dark"] .hero-service:hover{background-color:transparent;border-color:transparent;box-shadow:none}
