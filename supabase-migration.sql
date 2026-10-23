@@ -1,5 +1,5 @@
 -- Run this complete file once in Supabase SQL Editor.
--- It keeps the products already stored by your old website.
+-- It keeps existing products and adds order/service request storage.
 create extension if not exists pgcrypto;
 
 create table if not exists public.products (
@@ -54,6 +54,36 @@ drop policy if exists "Public can view website settings" on public.site_settings
 create policy "Public can view website settings" on public.site_settings for select using (true);
 drop policy if exists "Admins can update website settings" on public.site_settings;
 create policy "Admins can update website settings" on public.site_settings for update to authenticated using (public.is_admin()) with check (public.is_admin());
+
+-- Orders and service requests submitted by the storefront.
+-- Customer personal data is not readable by anonymous visitors.
+create table if not exists public.orders (
+  id uuid primary key default gen_random_uuid(),
+  customer_name text not null,
+  phone text not null,
+  fulfilment text not null default 'Akola shop pickup',
+  notes text not null default '',
+  items jsonb not null default '[]'::jsonb,
+  total numeric(12,2) not null default 0,
+  status text not null default 'Request received',
+  created_at timestamptz not null default now()
+);
+alter table public.orders enable row level security;
+drop policy if exists "Anyone can submit order requests" on public.orders;
+create policy "Anyone can submit order requests" on public.orders
+  for insert to anon, authenticated
+  with check (
+    length(trim(customer_name)) between 1 and 100
+    and length(trim(phone)) between 10 and 15
+    and length(notes) <= 2000
+    and total >= 0
+  );
+drop policy if exists "Admins can view orders" on public.orders;
+create policy "Admins can view orders" on public.orders
+  for select to authenticated using (public.is_admin());
+drop policy if exists "Admins can update orders" on public.orders;
+create policy "Admins can update orders" on public.orders
+  for update to authenticated using (public.is_admin()) with check (public.is_admin());
 
 insert into public.site_settings (id) values (1) on conflict (id) do nothing;
 
