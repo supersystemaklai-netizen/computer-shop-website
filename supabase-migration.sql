@@ -89,6 +89,15 @@ create policy "Admins can update services" on public.service_catalog for update 
 drop policy if exists "Admins can delete services" on public.service_catalog;
 create policy "Admins can delete services" on public.service_catalog for delete to authenticated using (public.is_admin());
 
+-- Explicit Data API privileges, required for projects where new tables are not auto-exposed.
+grant select on public.service_catalog to anon, authenticated;
+grant insert, update, delete on public.service_catalog to authenticated;
+grant all on public.service_catalog to service_role;
+grant select on public.site_settings to anon, authenticated;
+grant update on public.site_settings to authenticated;
+grant select on public.products to anon, authenticated;
+grant insert, update, delete on public.products to authenticated;
+
 insert into public.service_catalog (id,title,description,image,rates,rate_note,active,sort_order) values
 ('computer-services','Computer Services And Repairs','Professional computer repair, installation & data recovery services with 30-day warranty guarantee. Fast, affordable fixes for hardware failures, virus removal, and system optimization by certified local technicians.','/images/computer-services.webp',
 '[{"name":"Data Backup","charges":"₹250"},{"name":"System Slow","charges":"Will Quote After Inspection"},{"name":"Power Problems","charges":"Will Quote After Inspection"},{"name":"General Service","charges":"Will Quote After Inspection"},{"name":"Other Troubleshooting","charges":"Will Quote After Inspection"},{"name":"Networking Issues","charges":"Will Quote After Inspection"},{"name":"Hardware Issues","charges":"Will Quote After Inspection"},{"name":"Software Installation","charges":"Will Quote After Inspection"},{"name":"System Upgradation","charges":"Will Quote After Inspection"},{"name":"Other","charges":"Will Quote After Inspection"}]'::jsonb,
@@ -123,6 +132,9 @@ drop policy if exists "Admins can view orders" on public.orders;
 create policy "Admins can view orders" on public.orders for select to authenticated using (public.is_admin());
 drop policy if exists "Admins can update orders" on public.orders;
 create policy "Admins can update orders" on public.orders for update to authenticated using (public.is_admin()) with check (public.is_admin());
+grant insert on public.orders to anon, authenticated;
+grant select, update on public.orders to authenticated;
+grant all on public.orders to service_role;
 
 insert into public.site_settings (id) values (1) on conflict (id) do nothing;
 
