@@ -1,5 +1,6 @@
--- Run this complete file once in Supabase SQL Editor.
--- It keeps existing products and adds order/service request storage.
+-- Super System migration: safe to run more than once.
+-- Existing products/settings/admins are retained. New service catalog and theme fields are added.
+
 create extension if not exists pgcrypto;
 
 create table if not exists public.products (
@@ -36,8 +37,20 @@ create table if not exists public.site_settings (
   address text not null default 'Patrakar Colony Shop No. 13, LRT College Road, Behind New Bus Stand, Akola 444001, Maharashtra',
   working_hours text not null default 'Mon–Sat, 10:00 AM–10:00 PM',
   ticker jsonb not null default '["Same-day computer and CCTV service in Akola","Direct WhatsApp product ordering"]'::jsonb,
+  topbar_text text not null default 'Akola shop pickup • Computer & CCTV solutions • Repair booking',
+  theme_primary text not null default '#176b4b',
+  theme_accent text not null default '#d5f36a',
+  theme_background text not null default '#f7f8f3',
+  theme_text text not null default '#192a24',
+  theme_mode text not null default 'light' check (theme_mode in ('light','dark')),
   updated_at timestamptz not null default now()
 );
+alter table public.site_settings add column if not exists topbar_text text not null default 'Akola shop pickup • Computer & CCTV solutions • Repair booking';
+alter table public.site_settings add column if not exists theme_primary text not null default '#176b4b';
+alter table public.site_settings add column if not exists theme_accent text not null default '#d5f36a';
+alter table public.site_settings add column if not exists theme_background text not null default '#f7f8f3';
+alter table public.site_settings add column if not exists theme_text text not null default '#192a24';
+alter table public.site_settings add column if not exists theme_mode text not null default 'light';
 alter table public.site_settings enable row level security;
 alter table public.products enable row level security;
 
@@ -55,8 +68,42 @@ create policy "Public can view website settings" on public.site_settings for sel
 drop policy if exists "Admins can update website settings" on public.site_settings;
 create policy "Admins can update website settings" on public.site_settings for update to authenticated using (public.is_admin()) with check (public.is_admin());
 
--- Orders and service requests submitted by the storefront.
--- Customer personal data is not readable by anonymous visitors.
+create table if not exists public.service_catalog (
+  id text primary key,
+  title text not null,
+  description text not null default '',
+  image text not null default '',
+  rates jsonb not null default '[]'::jsonb,
+  rate_note text not null default 'Price may vary after inspection.',
+  active boolean not null default true,
+  sort_order integer not null default 0,
+  updated_at timestamptz not null default now()
+);
+alter table public.service_catalog enable row level security;
+drop policy if exists "Public can view active services" on public.service_catalog;
+create policy "Public can view active services" on public.service_catalog for select using (active = true or public.is_admin());
+drop policy if exists "Admins can insert services" on public.service_catalog;
+create policy "Admins can insert services" on public.service_catalog for insert to authenticated with check (public.is_admin());
+drop policy if exists "Admins can update services" on public.service_catalog;
+create policy "Admins can update services" on public.service_catalog for update to authenticated using (public.is_admin()) with check (public.is_admin());
+drop policy if exists "Admins can delete services" on public.service_catalog;
+create policy "Admins can delete services" on public.service_catalog for delete to authenticated using (public.is_admin());
+
+insert into public.service_catalog (id,title,description,image,rates,rate_note,active,sort_order) values
+('computer-services','Computer Services And Repairs','Professional computer repair, installation & data recovery services with 30-day warranty guarantee. Fast, affordable fixes for hardware failures, virus removal, and system optimization by certified local technicians.','/images/computer-services.webp',
+'[{"name":"Data Backup","charges":"₹250"},{"name":"System Slow","charges":"Will Quote After Inspection"},{"name":"Power Problems","charges":"Will Quote After Inspection"},{"name":"General Service","charges":"Will Quote After Inspection"},{"name":"Other Troubleshooting","charges":"Will Quote After Inspection"},{"name":"Networking Issues","charges":"Will Quote After Inspection"},{"name":"Hardware Issues","charges":"Will Quote After Inspection"},{"name":"Software Installation","charges":"Will Quote After Inspection"},{"name":"System Upgradation","charges":"Will Quote After Inspection"},{"name":"Other","charges":"Will Quote After Inspection"}]'::jsonb,
+'Price may vary after inspection.',true,1),
+('cctv-repair','CCTV Repair Service','We provide comprehensive onsite CCTV repair, installation, and AMC services with a 30-day repair warranty. Our comprehensive service includes a 1-year warranty on replaced parts.','/images/cctv-repair.webp',
+'[{"name":"Camera Blur","charges":"₹250"},{"name":"DVR Online Issue","charges":"₹350"},{"name":"No Signal","charges":"₹350"},{"name":"No Recording","charges":"₹350"},{"name":"Night Vision Problem","charges":"₹250"},{"name":"Installation","charges":"Will Quote After Inspection"},{"name":"Some Cameras - No Display","charges":"₹250"},{"name":"Other","charges":"Will Quote After Inspection"}]'::jsonb,
+'Price may vary after inspection.',true,2),
+('printer-repair','Printer Repair And Installation Service','We offer expert computer printer repair and installation services backed by our 30-day warranty guarantee. Our comprehensive service includes a 1-year warranty on replaced parts.','/images/printer-repair.webp',
+'[{"name":"Printer Installation","charges":"Will Quote After Inspection"},{"name":"Blank Paper Print","charges":"Will Quote After Inspection"},{"name":"Pages Not Loading","charges":"Will Quote After Inspection"},{"name":"Printer Not Detect","charges":"Will Quote After Inspection"},{"name":"Scanner Problem","charges":"Will Quote After Inspection"},{"name":"Black/Faint Print","charges":"Will Quote After Inspection"},{"name":"Paper Jam","charges":"Will Quote After Inspection"},{"name":"Printer Servicing","charges":"Will Quote After Inspection"},{"name":"Printer Dead","charges":"Will Quote After Inspection"},{"name":"Other","charges":"Will Quote After Inspection"}]'::jsonb,
+'Price may vary after inspection.',true,3),
+('cartridge-refill','Printer Cartridge Refill Service','We provide professional onsite refill services for all printer toner types with quick turnaround and guaranteed quality.','/images/cartridge-refill.webp',
+'[{"name":"Laser Printer Cartridge Refill - HP","charges":"₹300"},{"name":"Laser Printer Cartridge Refill - Brother","charges":"₹350"},{"name":"Laser Printer Cartridge Refill - Canon","charges":"₹300"},{"name":"Laser Printer Cartridge Refill - Other","charges":"₹300"},{"name":"Inktank Printer Cartridge Refill","charges":"₹150"},{"name":"Dot Matrix Printer Ribbon Change","charges":"₹99"},{"name":"Other Printer Service","charges":"₹250"},{"name":"Printer Cartridge Refill Service - Kyocera","charges":"₹599"}]'::jsonb,
+'Price may vary after inspection.',true,4)
+on conflict (id) do nothing;
+
 create table if not exists public.orders (
   id uuid primary key default gen_random_uuid(),
   customer_name text not null,
@@ -70,24 +117,14 @@ create table if not exists public.orders (
 );
 alter table public.orders enable row level security;
 drop policy if exists "Anyone can submit order requests" on public.orders;
-create policy "Anyone can submit order requests" on public.orders
-  for insert to anon, authenticated
-  with check (
-    length(trim(customer_name)) between 1 and 100
-    and length(trim(phone)) between 10 and 15
-    and length(notes) <= 2000
-    and total >= 0
-  );
+create policy "Anyone can submit order requests" on public.orders for insert to anon, authenticated
+with check (length(trim(customer_name)) between 1 and 100 and length(trim(phone)) between 10 and 15 and length(notes) <= 2000 and total >= 0);
 drop policy if exists "Admins can view orders" on public.orders;
-create policy "Admins can view orders" on public.orders
-  for select to authenticated using (public.is_admin());
+create policy "Admins can view orders" on public.orders for select to authenticated using (public.is_admin());
 drop policy if exists "Admins can update orders" on public.orders;
-create policy "Admins can update orders" on public.orders
-  for update to authenticated using (public.is_admin()) with check (public.is_admin());
+create policy "Admins can update orders" on public.orders for update to authenticated using (public.is_admin()) with check (public.is_admin());
 
 insert into public.site_settings (id) values (1) on conflict (id) do nothing;
 
--- AFTER creating your admin user in Authentication, replace the email and run:
--- insert into public.admin_users
--- select id from auth.users where email = 'YOUR-ADMIN-EMAIL@example.com'
--- on conflict (user_id) do nothing;
+-- To grant admin rights, create the user first in Supabase Auth, then run:
+-- insert into public.admin_users select id from auth.users where email = 'YOUR-ADMIN-EMAIL@example.com' on conflict (user_id) do nothing;
