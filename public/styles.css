@@ -124,3 +124,25 @@ html[data-theme="dark"] .hero-service img{mix-blend-mode:multiply}
 html[data-theme="dark"] .hero-service b{color:#eef5ef}
 @media(max-width:850px){.hero-art{display:grid!important;grid-template-columns:repeat(2,minmax(0,118px));max-width:260px;width:100%;justify-self:center;margin:0 auto 2px}.hero-service{height:104px}.hero-service img{height:68px;flex-basis:68px}}
 @media(max-width:550px){.hero-art{grid-template-columns:repeat(2,minmax(0,112px));max-width:240px}.hero-service{height:98px}.hero-service img{height:62px;flex-basis:62px}}
+
+/* Transparent PNG sprite with each art tile carrying its own dark neon panel.
+   This final rule intentionally overrides legacy WEBP/multiply fallback styles. */
+.hero-art{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;width:100%;max-width:270px;justify-self:center;align-self:center}
+.hero-service,.hero-service:hover{
+  width:100%;height:auto;aspect-ratio:1/1;min-width:0;min-height:0;padding:0;
+  display:block;border:0;border-radius:0;background-color:transparent;
+  background-image:url('/images/service-sprite.png')!important;
+  background-repeat:no-repeat;background-size:200% 200%;
+  box-shadow:none;overflow:hidden;transform:none;filter:none;cursor:pointer;
+}
+.hero-service img,.hero-service b{display:none!important}
+.hero-service.sprite-computer{background-position:0 0!important}
+.hero-service.sprite-cctv{background-position:100% 0!important}
+.hero-service.sprite-printer{background-position:0 100%!important}
+.hero-service.sprite-cartridge{background-position:100% 100%!important}
+.hero-service:hover{filter:brightness(1.08);transform:translateY(-2px)}
+html[data-theme="dark"] .hero-service,html[data-theme="dark"] .hero-service:hover{
+  background-color:transparent;border:0;box-shadow:none
+}
+@media(max-width:850px){.hero-art{display:grid!important;grid-template-columns:repeat(2,minmax(0,105px));max-width:230px;gap:8px}}
+@media(max-width:550px){.hero-art{grid-template-columns:repeat(2,minmax(0,96px));max-width:210px;gap:8px}}
