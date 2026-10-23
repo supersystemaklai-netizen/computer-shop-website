@@ -92,7 +92,7 @@ html[data-theme="dark"] .hero-service:hover{border-color:var(--lime)}
 .hero-service{
   width:100%;height:auto;aspect-ratio:1/1;min-width:0;min-height:0;padding:0;
   border:0;border-radius:0;background-color:transparent;
-  background-image:url('/images/service-sprite.png');
+  background-image:url('/images/service-sprite.svg');
   background-repeat:no-repeat;background-size:200% 200%;
   box-shadow:none;gap:0;overflow:visible;
 }
@@ -131,7 +131,7 @@ html[data-theme="dark"] .hero-service b{color:#eef5ef}
 .hero-service,.hero-service:hover{
   width:100%;height:auto;aspect-ratio:1/1;min-width:0;min-height:0;padding:0;
   display:block;border:0;border-radius:0;background-color:transparent;
-  background-image:url('/images/service-sprite.png')!important;
+  background-image:url('/images/service-sprite.svg')!important;
   background-repeat:no-repeat;background-size:200% 200%;
   box-shadow:none;overflow:hidden;transform:none;filter:none;cursor:pointer;
 }
