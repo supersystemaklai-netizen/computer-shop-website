@@ -223,3 +223,79 @@ html[data-theme="dark"] .add-btn{background:#18251d;color:#c3f58c}
 html[data-theme="dark"] .official-product-link a{color:#baf29a}
 html[data-theme="dark"] .product-detail-description{color:#c0cdc4}
 html[data-theme="dark"] .product-model{color:#b9c7bd}
+
+
+/* HD transparent service artwork: four equally-sized, isolated icons in a 2×2 sprite. */
+.hero-art{display:grid!important;grid-template-columns:repeat(2,minmax(116px,144px));gap:6px 10px;width:100%;max-width:300px;justify-self:center;align-self:center}
+.hero-service,.hero-service:hover{
+ width:100%;height:auto;aspect-ratio:1/1;min-width:0;min-height:0;padding:0;
+ display:block;border:0!important;border-radius:0;background-color:transparent!important;
+ background-image:url('/images/service-sprite.webp')!important;background-repeat:no-repeat;
+ background-size:200% 200%;box-shadow:none!important;overflow:hidden;transform:none;
+ filter:none;cursor:pointer;transition:filter .18s,transform .18s;
+}
+.hero-service img,.hero-service b{display:none!important}
+.hero-service.sprite-computer{background-position:0 0!important}
+.hero-service.sprite-cctv{background-position:100% 0!important}
+.hero-service.sprite-printer{background-position:0 100%!important}
+.hero-service.sprite-cartridge{background-position:100% 100%!important}
+.hero-service:hover{filter:brightness(1.04);transform:translateY(-2px)}
+html[data-theme="dark"] .hero-service,html[data-theme="dark"] .hero-service:hover{background-color:transparent!important;border:0!important;box-shadow:none!important}
+
+/* Footer-first navigation, with the appearance toggle retained in the footer. */
+.site-footer{margin-top:30px;padding:35px max(22px,calc((100vw - 1230px)/2)) 18px;background:#edf2e7;border-top:1px solid var(--line);color:var(--ink)}
+.footer-main{display:grid;grid-template-columns:1.5fr 1fr 1.1fr 1.4fr;gap:28px;max-width:1280px;margin:0 auto 26px}
+.footer-brand-title{display:flex;gap:10px;align-items:center;font-size:16px;font-weight:800}
+.footer-brand-title b,.footer-brand-title small{display:block}
+.footer-brand-title small{font-size:9px;letter-spacing:.25em;color:var(--green)}
+.footer-brand p,.footer-column p{font-size:12px;color:var(--muted);line-height:1.7;max-width:290px}
+.footer-contact-link{display:inline-block;color:var(--green);font-weight:800;font-size:12px;margin-top:6px}
+.footer-column{display:flex;flex-direction:column;align-items:flex-start;gap:9px;min-width:0}
+.footer-column h3{font-size:13px;margin:4px 0 5px}
+.footer-column a{font-size:12px;color:var(--muted);line-height:1.5;overflow-wrap:anywhere}
+.footer-column a:hover,.footer-column a:focus-visible,.footer-contact-link:hover{text-decoration:underline;color:var(--green)}
+.footer-contact p{margin:0 0 2px}
+.footer-contact small{font-size:11px;color:var(--muted);margin-top:4px}
+.footer-bottom{max-width:1280px;margin:auto;padding-top:16px;border-top:1px solid #d9e0d4;display:flex;align-items:center;gap:14px;justify-content:space-between;flex-wrap:wrap;font-size:11px;color:var(--muted)}
+.footer-bottom p{margin:0;max-width:520px;line-height:1.6}
+.footer-bottom .theme-toggle{flex:0 0 auto;margin-left:auto}
+html[data-theme="dark"] .site-footer{background:#17211b;border-color:#303c35;color:#eef5ef}
+html[data-theme="dark"] .footer-bottom{border-color:#303c35}
+html[data-theme="dark"] .footer-column a,html[data-theme="dark"] .footer-brand p,html[data-theme="dark"] .footer-column p,html[data-theme="dark"] .footer-contact small,html[data-theme="dark"] .footer-bottom{color:#b9c7bd}
+html[data-theme="dark"] .footer-contact-link,html[data-theme="dark"] .footer-column a:hover{color:#baf29a}
+.policy-page{max-width:1050px;margin:0 auto;padding:30px 20px 60px}
+.policy-header{display:flex;justify-content:space-between;align-items:center;gap:18px;padding:16px 20px;border-bottom:1px solid var(--line);background:#fff}
+.policy-header .brand{min-width:0}
+.policy-shell{background:#fff;border:1px solid var(--line);border-radius:18px;padding:30px;margin:24px 0}
+.policy-shell h1{font-size:clamp(30px,4vw,42px);letter-spacing:-.03em;margin:0 0 10px}
+.policy-shell h2{font-size:24px;margin:32px 0 12px;scroll-margin-top:20px}
+.policy-shell h3{font-size:16px;margin:20px 0 7px}
+.policy-shell p,.policy-shell li{color:var(--muted);font-size:14px;line-height:1.75}
+.policy-shell ul{padding-left:22px}
+.policy-date{font-size:12px;color:var(--muted);margin-bottom:24px}
+.policy-toc{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 30px}
+.policy-toc a{padding:8px 11px;border:1px solid var(--line);border-radius:9px;font-size:12px;font-weight:700;background:var(--paper)}
+.policy-callout{padding:14px 16px;border-left:3px solid var(--green);background:#f2f6e9;border-radius:0 10px 10px 0}
+html[data-theme="dark"] .policy-header,html[data-theme="dark"] .policy-shell{background:#17211b;border-color:#303c35}
+html[data-theme="dark"] .policy-shell p,html[data-theme="dark"] .policy-shell li,html[data-theme="dark"] .policy-date{color:#b9c7bd}
+html[data-theme="dark"] .policy-toc a{background:#202c25;border-color:#344239}
+html[data-theme="dark"] .policy-callout{background:#202c25}
+@media(max-width:850px){
+ .hero-art{grid-template-columns:repeat(2,minmax(100px,130px));max-width:270px}
+ .footer-main{grid-template-columns:repeat(2,minmax(0,1fr));gap:25px 18px}
+ .footer-bottom{align-items:flex-start}
+}
+@media(max-width:550px){
+ .hero-art{grid-template-columns:repeat(2,minmax(94px,112px));max-width:236px;gap:3px 8px}
+ .site-footer{padding:26px 17px 16px}
+ .footer-main{grid-template-columns:repeat(2,minmax(0,1fr));gap:22px 15px}
+ .footer-brand-title .brandmark{width:36px;height:36px}
+ .footer-brand p{font-size:11px}
+ .footer-bottom{display:grid;grid-template-columns:1fr;gap:10px}
+ .footer-bottom .theme-toggle{margin-left:0}
+ .policy-page{padding:18px 12px 35px}
+ .policy-header{padding:12px 14px}
+ .policy-shell{padding:20px 15px;margin:15px 0}
+ .policy-shell h2{font-size:21px}
+ .policy-toc{gap:6px}
+}
