@@ -549,3 +549,117 @@ html[data-theme="dark"] .footer-column p{color:#b9c7bd}
  .footer-bottom{display:grid!important;grid-template-columns:minmax(0,1fr);gap:12px!important}
  .footer-bottom .theme-toggle{margin-left:0!important;justify-self:start}
 }
+
+
+/* Cross-site links: dark green cards with lime accents, matching the requested footer design. */
+.footer-partner-links{
+ display:grid;
+ grid-template-columns:repeat(2,minmax(0,1fr));
+ gap:18px;
+ width:min(100%,940px);
+ margin:24px auto 15px;
+ padding:0 0 18px;
+ border-bottom:1px solid rgba(21,111,75,.34);
+}
+.footer-partner-card{
+ display:grid;
+ grid-template-columns:52px minmax(0,1fr) 42px;
+ align-items:center;
+ gap:13px;
+ min-width:0;
+ min-height:88px;
+ padding:13px 15px;
+ border:1px solid #158454;
+ border-radius:22px;
+ background:
+  radial-gradient(ellipse at 12% 0%,rgba(30,180,109,.20),transparent 52%),
+  linear-gradient(120deg,#071d15 0%,#0c2b20 62%,#06180f 100%);
+ color:#f4fff6!important;
+ text-decoration:none!important;
+ box-shadow:0 7px 20px rgba(4,30,19,.12),inset 0 1px 0 rgba(229,255,232,.07);
+ transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease;
+}
+.footer-partner-card:hover{
+ transform:translateY(-2px);
+ border-color:#35d68a;
+ box-shadow:0 10px 25px rgba(4,30,19,.20),0 0 0 2px rgba(34,209,125,.07);
+}
+.footer-partner-card:focus-visible{outline:3px solid #d5f36a;outline-offset:3px}
+.footer-partner-mark{
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ width:48px;
+ height:48px;
+ flex:0 0 48px;
+ border:2px solid rgba(255,255,255,.72);
+ border-radius:50%;
+ background:#f8fff7;
+ color:#111b16;
+ font-size:18px;
+ font-weight:950;
+ letter-spacing:-1px;
+ box-shadow:0 2px 8px rgba(0,0,0,.25);
+}
+.footer-mark-ne{background:radial-gradient(circle at 30% 20%,#fff 0%,#fff 65%,#e8eee9 100%);color:#171d1b}
+.footer-mark-ne::first-letter{color:#e53935}
+.footer-mark-bgi{background:radial-gradient(circle at 32% 24%,#59caff,#1465b6 64%,#08274d);color:#fff;border-color:#d4f4ff;text-shadow:0 1px 2px #052b57}
+.footer-partner-copy{display:flex;flex-direction:column;gap:5px;min-width:0}
+.footer-partner-copy strong{font-size:clamp(14px,1.25vw,19px);font-weight:850;line-height:1.2;overflow-wrap:anywhere}
+.footer-partner-copy small{font-size:clamp(10px,.88vw,12px);font-weight:650;line-height:1.4;color:#d9f66d;overflow-wrap:anywhere}
+.footer-partner-arrow{
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ width:40px;
+ height:40px;
+ border-radius:14px;
+ background:linear-gradient(135deg,#26d879,#07854d);
+ color:#fff;
+ font-size:25px;
+ line-height:1;
+ font-weight:800;
+ box-shadow:0 3px 9px rgba(0,0,0,.2);
+}
+.footer-developer-credit{
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ gap:14px;
+ margin:17px auto 0;
+ padding-top:0;
+ color:var(--muted);
+ text-align:center;
+}
+.footer-developer-credit>span{
+ display:block;
+ width:42px;
+ height:1px;
+ background:currentColor;
+ opacity:.65;
+}
+.footer-developer-credit p{margin:0;font-size:13px;line-height:1.6}
+.footer-developer-credit a{color:#178552;font-weight:850;text-decoration:none}
+.footer-developer-credit a:hover{text-decoration:underline}
+html[data-theme="dark"] .footer-partner-links{border-bottom-color:#245843}
+html[data-theme="dark"] .footer-partner-card{border-color:#168b57}
+html[data-theme="dark"] .footer-partner-copy small{color:#e5f879}
+html[data-theme="dark"] .footer-developer-credit{color:#aabdb1}
+html[data-theme="dark"] .footer-developer-credit a{color:#d5f36a}
+@media(max-width:760px){
+ .footer-partner-links{grid-template-columns:minmax(0,1fr);gap:12px;margin:20px auto 14px;padding-bottom:16px}
+ .footer-partner-card{grid-template-columns:48px minmax(0,1fr) 38px;min-height:80px;padding:11px 12px;gap:11px;border-radius:18px}
+ .footer-partner-mark{width:44px;height:44px;flex-basis:44px;font-size:16px}
+ .footer-partner-arrow{width:36px;height:36px;border-radius:12px;font-size:22px}
+ .footer-partner-copy strong{font-size:16px}
+ .footer-partner-copy small{font-size:11px}
+ .footer-developer-credit{gap:9px;margin-top:14px}
+ .footer-developer-credit>span{width:24px}
+ .footer-developer-credit p{font-size:12px}
+}
+@media(max-width:390px){
+ .footer-partner-card{grid-template-columns:42px minmax(0,1fr) 32px;gap:9px}
+ .footer-partner-mark{width:40px;height:40px;flex-basis:40px;font-size:14px}
+ .footer-partner-arrow{width:31px;height:31px;border-radius:10px}
+ .footer-partner-copy small{font-size:10px}
+}
