@@ -144,5 +144,16 @@ grant all on public.orders to service_role;
 
 insert into public.site_settings (id) values (1) on conflict (id) do nothing;
 
+
+-- Secure any legacy enquiries table that the older storefront may have created.
+-- This deployment now collects order/service requests through public.orders.
+do $
+begin
+  if to_regclass('public.enquiries') is not null then
+    execute 'alter table public.enquiries enable row level security';
+    execute 'revoke all on public.enquiries from anon, authenticated';
+  end if;
+end $;
+
 -- To grant admin rights, create the user first in Supabase Auth, then run:
 -- insert into public.admin_users select id from auth.users where email = 'YOUR-ADMIN-EMAIL@example.com' on conflict (user_id) do nothing;
