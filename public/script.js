@@ -81,27 +81,5 @@ function openCart(){const lines=Object.entries(cart).map(([id,q])=>{const p=prod
 $('#searchInput').oninput=e=>{query=e.target.value;renderProducts()};$('#searchInput').onkeydown=e=>{if(e.key==='Enter'){document.querySelector('#products').scrollIntoView({behavior:'smooth',block:'start'})}};
 $('#clearSearch').onclick=()=>{$('#searchInput').value='';query='';renderProducts()};
 $('#sortSelect').onchange=renderProducts;$('#cartBtn').onclick=openCart;$('#closeDrawer').onclick=closeDrawer;$('#overlay').onclick=closeDrawer;
-$('#year').textContent=new Date().getFullYear();saveCart();setupTheme();loadHeroServiceArtwork();loadSettings().then(async()=>{await loadProducts();await loadServiceCatalog();bindHeroServiceButtons()});
+$('#year').textContent=new Date().getFullYear();saveCart();setupTheme();loadSettings().then(async()=>{await loadProducts();await loadServiceCatalog();bindHeroServiceButtons()});
 function bindHeroServiceButtons(){const root=$('#heroServiceArt');if(!root)return;root.querySelectorAll('[data-hero-service]').forEach(b=>b.onclick=()=>{const id=b.dataset.heroService;const item=serviceCatalog.find(s=>String(s.id)===id)||defaultServices.find(s=>s.id===id);if(item)openServiceDetail(item)})}
-
-
-async function loadHeroServiceArtwork(){
- const img=$('#heroServiceBoard');
- if(!img)return;
- try{
-  const chunks=await Promise.all(Array.from({length:5},(_,i)=>
-   fetch('/images/hero-service-cards.webp.b64.part'+i+'.txt',{cache:'force-cache'})
-    .then(r=>{if(!r.ok)throw new Error('Service artwork part '+i+' failed to load');return r.text()})
-  ));
-  const encoded=chunks.join('').replace(/\\s+/g,'');
-  const binary=atob(encoded);
-  const bytes=new Uint8Array(binary.length);
-  for(let i=0;i<binary.length;i++)bytes[i]=binary.charCodeAt(i);
-  const objectUrl=URL.createObjectURL(new Blob([bytes],{type:'image/webp'}));
-  img.onload=()=>URL.revokeObjectURL(objectUrl);
-  img.onerror=()=>URL.revokeObjectURL(objectUrl);
-  img.src=objectUrl;
- }catch(err){
-  console.error('Could not load the supplied service card image',err);
- }
-}
