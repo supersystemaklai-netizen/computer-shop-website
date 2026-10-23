@@ -90,13 +90,19 @@ drop policy if exists "Admins can delete services" on public.service_catalog;
 create policy "Admins can delete services" on public.service_catalog for delete to authenticated using (public.is_admin());
 
 -- Explicit Data API privileges, required for projects where new tables are not auto-exposed.
+-- Keep anonymous browser access read-only except for creating order requests.
+revoke insert, update, delete, truncate, references, trigger on public.service_catalog from anon;
+revoke insert, update, delete, truncate, references, trigger on public.site_settings from anon;
+revoke insert, update, delete, truncate, references, trigger on public.products from anon;
+revoke select, update, delete, truncate, references, trigger on public.orders from anon;
 grant select on public.service_catalog to anon, authenticated;
 grant insert, update, delete on public.service_catalog to authenticated;
-grant all on public.service_catalog to service_role;
 grant select on public.site_settings to anon, authenticated;
 grant update on public.site_settings to authenticated;
 grant select on public.products to anon, authenticated;
 grant insert, update, delete on public.products to authenticated;
+grant insert on public.orders to anon, authenticated;
+grant select, update on public.orders to authenticated;
 
 insert into public.service_catalog (id,title,description,image,rates,rate_note,active,sort_order) values
 ('computer-services','Computer Services And Repairs','Professional computer repair, installation & data recovery services with 30-day warranty guarantee. Fast, affordable fixes for hardware failures, virus removal, and system optimization by certified local technicians.','/images/computer-services.webp',
