@@ -2,3 +2,38 @@
 .quick-services{padding-top:4px}.quick-service-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}.quick-service-card{border:1px solid var(--line);background:#fff;border-radius:16px;padding:18px 14px;display:flex;align-items:center;flex-direction:column;gap:12px;text-align:center;min-height:190px;color:var(--ink);font-weight:700;line-height:1.35;transition:transform .18s,box-shadow .18s}.quick-service-card:hover{transform:translateY(-3px);box-shadow:0 12px 28px #193d2412;border-color:#b9d59b}.quick-service-icon{height:105px;width:100%;display:grid;place-items:center;border-radius:12px;background:linear-gradient(145deg,#f3f7ec,#fff);font-size:62px}.quick-service-arrow{font-size:12px;color:var(--green);font-weight:800;margin-top:auto}@media(max-width:700px){.quick-service-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.quick-service-card{min-height:165px;padding:12px 9px;font-size:13px}.quick-service-icon{height:90px;font-size:52px}}
 .quick-service-icon img{width:100%;height:100%;object-fit:contain;display:block}
 .quick-service-icon{background:#fff}
+
+/* Service catalogue details, booking table and theme modes */
+.theme-toggle{margin-left:auto;border:1px solid var(--line);background:var(--paper);color:var(--ink);padding:9px 13px;border-radius:10px;font-weight:700;white-space:nowrap}
+.quick-service-icon{overflow:hidden;flex:0 0 105px;max-width:100%;padding:5px}
+.quick-service-icon img{max-width:100%;max-height:100%;width:100%;height:100%;object-fit:contain}
+.quick-service-card{min-width:0}
+.service-detail{font-size:14px}
+.detail-image{display:block;width:100%;height:135px;object-fit:contain;background:#f6f8f2;border-radius:12px;margin-bottom:12px}
+.service-long-description{line-height:1.7;color:var(--muted)}
+.service-detail h3{margin:20px 0 12px}
+.rate-table-wrap{width:100%;overflow-x:auto;border:1px solid var(--line);border-radius:12px}
+.rate-table{width:100%;border-collapse:collapse;font-size:13px;min-width:350px}
+.rate-table th{background:#edf4e6;text-align:left;font-weight:800}
+.rate-table th,.rate-table td{padding:11px 10px;border-bottom:1px solid var(--line);vertical-align:middle}
+.rate-table tr:last-child td{border-bottom:0}
+.rate-table td:nth-child(2){white-space:nowrap;font-weight:700}
+.rate-book{background:var(--green);color:white;border:0;border-radius:8px;padding:8px 10px;font-size:12px;font-weight:800;white-space:nowrap}
+.rate-note,.form-hint{font-size:12px;color:var(--muted);line-height:1.6;margin-top:12px}
+.success-symbol{font-size:34px;width:54px;height:54px;display:grid;place-items:center;border-radius:50%;background:var(--lime);color:#123522;font-weight:900;margin:10px 0}
+html[data-theme="dark"] body{background:#111815;color:#eef5ef}
+html[data-theme="dark"] .topline{background:#07110d;color:#f2faf3}
+html[data-theme="dark"] .header,html[data-theme="dark"] .nav,html[data-theme="dark"] .product-card,html[data-theme="dark"] .service-card,html[data-theme="dark"] .quick-service-card,html[data-theme="dark"] .drawer,html[data-theme="dark"] .rate-table-wrap{background:#1a241e;color:#eef5ef;border-color:#344239}
+html[data-theme="dark"] .search,html[data-theme="dark"] .filters button,html[data-theme="dark"] .section-head select,html[data-theme="dark"] .add-btn,html[data-theme="dark"] .qty button,html[data-theme="dark"] .rate-table td{background:#202c25;color:#eef5ef;border-color:#3a4a3f}
+html[data-theme="dark"] .search input{color:#f4f8f5}
+html[data-theme="dark"] .hero{background:linear-gradient(120deg,#1e3023,#15251d)}
+html[data-theme="dark"] .art-card,html[data-theme="dark"] .quick-service-icon,html[data-theme="dark"] .detail-image{background:#202c25;color:#f0f6f0}
+html[data-theme="dark"] .contact{background:#20372a}
+html[data-theme="dark"] .rate-table th{background:#293c2f;color:#f2f7f2}
+html[data-theme="dark"] .rate-table td{border-color:#344239}
+html[data-theme="dark"] footer{color:#b7c5ba;border-color:#344239}
+html[data-theme="dark"] .theme-toggle{background:#202c25;color:#f3f8f4;border-color:#405047}
+html[data-theme="dark"] .filters button.active{background:var(--green);color:#fff}
+html[data-theme="dark"] .secondary{color:#142016}
+html[data-theme="dark"] .checkout-form input,html[data-theme="dark"] .checkout-form textarea,html[data-theme="dark"] .checkout-form select{background:#202c25;color:#f0f6f0;border-color:#405047}
+@media(max-width:700px){.theme-toggle{margin-left:0}.quick-service-icon{flex-basis:90px}.quick-service-card{gap:9px}.rate-table th,.rate-table td{padding:9px 7px}}
