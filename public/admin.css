@@ -1,16 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&family=Inter:wght@400;500;600&display=swap');
 
 :root {
-  --bg: #10141b;
-  --panel: #171e28;
-  --panel-alt: #1d2632;
-  --border: #2a3342;
-  --text: #edf1f5;
-  --text-muted: #8d97a8;
-  --accent: #34e2a1;
-  --accent-dim: #1f8f66;
-  --amber: #ffb648;
-  --danger: #ff6b6b;
+  --bg: #f6f8f4;
+  --panel: #ffffff;
+  --panel-alt: #f0f4ed;
+  --border: #dce5db;
+  --text: #192a24;
+  --text-muted: #66766f;
+  --accent: #d5f36a;
+  --accent-dim: #176b4b;
+  --amber: #9a6700;
+  --danger: #c53030;
   --radius: 12px;
 }
 * { box-sizing: border-box; }
@@ -205,3 +205,14 @@ input[type="color"]{height:44px;padding:4px;cursor:pointer}
 .sidebar .tab{transition:background .15s,color .15s}
 .admin-product-table{display:block;overflow-x:auto;white-space:nowrap}
 @media(max-width:760px){.dash.open{display:block}.sidebar{width:100%;display:flex;gap:7px;align-items:center;overflow-x:auto;border-right:0;border-bottom:1px solid var(--border);padding:12px}.sidebar .brand{white-space:nowrap;margin:0 10px 0 0}.sidebar button.tab,.sidebar a.tab{width:auto;white-space:nowrap;margin:0}.logout-btn{width:auto;white-space:nowrap;margin:0 0 0 auto}.main{padding:20px 14px}.form-grid{grid-template-columns:1fr}.form-grid .full{grid-column:auto}}
+
+/* Admin console intentionally stays in a readable light theme, independent of storefront dark mode. */
+body{background:var(--bg);color:var(--text)}
+.login-box,.enquiry-card,.product-form{background:var(--panel);border-color:var(--border)}
+.sidebar{background:#fff;border-right-color:var(--border)}
+.sidebar button.tab.active{background:var(--panel-alt);color:var(--text)}
+.sidebar button.tab:hover{color:var(--accent-dim)}
+.btn{background:var(--accent);color:#192a24}
+.btn:hover{filter:brightness(.97)}
+.field input,.field select,.field textarea,.status-select{background:#fff;color:var(--text);border-color:var(--border)}
+.pill,.btn-small{background:var(--panel-alt);border-color:var(--border);color:var(--text)}
