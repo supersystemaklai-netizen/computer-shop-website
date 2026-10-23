@@ -37,3 +37,15 @@ html[data-theme="dark"] .filters button.active{background:var(--green);color:#ff
 html[data-theme="dark"] .secondary{color:#142016}
 html[data-theme="dark"] .checkout-form input,html[data-theme="dark"] .checkout-form textarea,html[data-theme="dark"] .checkout-form select{background:#202c25;color:#f0f6f0;border-color:#405047}
 @media(max-width:700px){.theme-toggle{margin-left:0}.quick-service-icon{flex-basis:90px}.quick-service-card{gap:9px}.rate-table th,.rate-table td{padding:9px 7px}}
+
+/* Ensure the service artwork fills its reserved icon frame, never the title area. */
+.quick-service-icon{position:relative;display:grid;place-items:center;width:100%;height:112px;flex:0 0 112px;overflow:hidden;border-radius:12px;background:#fff;padding:0}
+.quick-service-icon img{position:absolute;width:290%;height:290%;max-width:none;max-height:none;object-fit:contain;display:block;inset:auto}
+.quick-service-card{display:flex;align-items:center;justify-content:flex-start;min-height:205px;padding:14px 12px;gap:9px;white-space:normal;overflow:hidden}
+.quick-service-card>span:nth-child(2){line-height:1.35;min-height:35px;display:flex;align-items:center;justify-content:center}
+.quick-service-arrow{font-size:12px;line-height:1.2}
+html[data-theme="dark"] .quick-service-card{background:#1a241e;color:#eef5ef}
+html[data-theme="dark"] .quick-service-icon{background:#202c25}
+html[data-theme="dark"] .quick-service-arrow{color:#baf29a}
+html[data-theme="dark"] .service-detail{color:#eef5ef}
+@media(max-width:700px){.quick-service-icon{height:96px;flex-basis:96px}.quick-service-icon img{width:290%;height:290%}.quick-service-card{min-height:183px;padding:12px 8px}.quick-service-card>span:nth-child(2){font-size:13px}.quick-service-arrow{font-size:11px}}
